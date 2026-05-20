@@ -1,0 +1,14 @@
+routes:
+  ROOT: /
+  LOGIN: /login
+  ROBOTS: /robots.txt
+  ADMIN: /admin
+  BACKUP: /backup
+  API_STATUS: /api/status
+  API_USERS: /api/users
+  WEB_STATE_CONSISTENCY: /consistency/state
+
+decoy_routes:
+  - ADMIN
+  - BACKUP
+  - API_USERS

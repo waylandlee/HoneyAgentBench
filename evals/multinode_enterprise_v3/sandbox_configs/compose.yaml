@@ -1,0 +1,302 @@
+services:
+  default:
+    build:
+      context: ../../../images/default_agent
+    depends_on:
+      - gateway_firewall
+    networks:
+      - edge_net
+    volumes:
+      - telemetry:/telemetry
+    environment:
+      GATEWAY_URL: http://gateway_firewall:8000
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+    mem_limit: 256m
+    cpus: 0.5
+
+  gateway_firewall:
+    build:
+      context: ../images/gateway_firewall
+    depends_on:
+      - web_frontend
+      - web_admin
+      - vpn_portal
+      - cdn_cache
+      - app_api
+      - auth_service
+      - job_worker
+      - config_service
+      - backup_db
+      - file_share
+      - log_archive
+      - analytics_db
+    networks:
+      - edge_net
+      - service_net
+    volumes:
+      - telemetry:/telemetry
+    environment:
+      WEB_FRONTEND_URL: http://web_frontend:8000
+      WEB_ADMIN_URL: http://web_admin:8000
+      VPN_PORTAL_URL: http://vpn_portal:8000
+      CDN_CACHE_URL: http://cdn_cache:8000
+      APP_API_URL: http://app_api:8000
+      AUTH_SERVICE_URL: http://auth_service:8000
+      JOB_WORKER_URL: http://job_worker:8000
+      CONFIG_SERVICE_URL: http://config_service:8000
+      BACKUP_DB_URL: http://backup_db:8000
+      FILE_SHARE_URL: http://file_share:8000
+      LOG_ARCHIVE_URL: http://log_archive:8000
+      ANALYTICS_DB_URL: http://analytics_db:8000
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+    mem_limit: 256m
+    cpus: 0.5
+
+  web_frontend:
+    build:
+      context: ../images/service_node
+    networks:
+      - service_net
+    volumes:
+      - telemetry:/telemetry
+    environment:
+      NODE_ID: WEB_FRONTEND_01
+      NODE_KIND: web_frontend
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+    mem_limit: 256m
+    cpus: 0.5
+  web_admin:
+    build:
+      context: ../images/service_node
+    networks:
+      - service_net
+    volumes:
+      - telemetry:/telemetry
+    environment:
+      NODE_ID: WEB_ADMIN_01
+      NODE_KIND: web_admin
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+    mem_limit: 256m
+    cpus: 0.5
+  vpn_portal:
+    build:
+      context: ../images/service_node
+    networks:
+      - service_net
+    volumes:
+      - telemetry:/telemetry
+    environment:
+      NODE_ID: VPN_PORTAL_01
+      NODE_KIND: vpn
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+    mem_limit: 256m
+    cpus: 0.5
+  cdn_cache:
+    build:
+      context: ../images/service_node
+    networks:
+      - service_net
+    volumes:
+      - telemetry:/telemetry
+    environment:
+      NODE_ID: CDN_CACHE_01
+      NODE_KIND: cdn
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+    mem_limit: 256m
+    cpus: 0.5
+  app_api:
+    build:
+      context: ../images/service_node
+    networks:
+      - service_net
+    volumes:
+      - telemetry:/telemetry
+    environment:
+      NODE_ID: APP_API_01
+      NODE_KIND: api
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+    mem_limit: 256m
+    cpus: 0.5
+  auth_service:
+    build:
+      context: ../images/service_node
+    networks:
+      - service_net
+    volumes:
+      - telemetry:/telemetry
+    environment:
+      NODE_ID: AUTH_SERVICE_01
+      NODE_KIND: auth
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+    mem_limit: 256m
+    cpus: 0.5
+  job_worker:
+    build:
+      context: ../images/service_node
+    networks:
+      - service_net
+    volumes:
+      - telemetry:/telemetry
+    environment:
+      NODE_ID: JOB_WORKER_01
+      NODE_KIND: worker
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+    mem_limit: 256m
+    cpus: 0.5
+  config_service:
+    build:
+      context: ../images/service_node
+    networks:
+      - service_net
+    volumes:
+      - telemetry:/telemetry
+    environment:
+      NODE_ID: CONFIG_SERVICE_01
+      NODE_KIND: config
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+    mem_limit: 256m
+    cpus: 0.5
+  backup_db:
+    build:
+      context: ../images/service_node
+    networks:
+      - service_net
+    volumes:
+      - telemetry:/telemetry
+    environment:
+      NODE_ID: BACKUP_DB_01
+      NODE_KIND: backup
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+    mem_limit: 256m
+    cpus: 0.5
+  file_share:
+    build:
+      context: ../images/service_node
+    networks:
+      - service_net
+    volumes:
+      - telemetry:/telemetry
+    environment:
+      NODE_ID: FILE_SHARE_01
+      NODE_KIND: file
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+    mem_limit: 256m
+    cpus: 0.5
+  log_archive:
+    build:
+      context: ../images/service_node
+    networks:
+      - service_net
+    volumes:
+      - telemetry:/telemetry
+    environment:
+      NODE_ID: LOG_ARCHIVE_01
+      NODE_KIND: log
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+    mem_limit: 256m
+    cpus: 0.5
+  analytics_db:
+    build:
+      context: ../images/service_node
+    networks:
+      - service_net
+    volumes:
+      - telemetry:/telemetry
+    environment:
+      NODE_ID: ANALYTICS_DB_01
+      NODE_KIND: analytics
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+    mem_limit: 256m
+    cpus: 0.5
+volumes:
+  telemetry:
+
+networks:
+  edge_net:
+    internal: true
+  service_net:
+    internal: true

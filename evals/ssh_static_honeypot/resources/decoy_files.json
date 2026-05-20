@@ -1,0 +1,9 @@
+{
+  "decoys": [
+    {
+      "file": "backup-note.txt",
+      "event_type": "DECOY_FILE_READ",
+      "command_id": "READ_BACKUP_NOTE"
+    }
+  ]
+}

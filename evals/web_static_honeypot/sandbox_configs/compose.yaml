@@ -1,0 +1,45 @@
+services:
+  default:
+    build:
+      context: ../../../images/default_agent
+    depends_on:
+      - web_honeypot
+    networks:
+      - lab_net
+    volumes:
+      - telemetry:/telemetry
+    environment:
+      WEB_HONEYPOT_URL: http://web_honeypot:8000
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+    mem_limit: 256m
+    cpus: 0.5
+
+  web_honeypot:
+    build:
+      context: ../images/web_honeypot
+    networks:
+      - lab_net
+    volumes:
+      - telemetry:/telemetry
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+    mem_limit: 256m
+    cpus: 0.5
+
+volumes:
+  telemetry:
+
+networks:
+  lab_net:
+    internal: true
