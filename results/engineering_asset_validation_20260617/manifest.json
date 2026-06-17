@@ -1,0 +1,32 @@
+{
+  "command": [
+    "python -m pytest tests/test_scenarios.py tests/test_seed_generation.py tests/test_run_manifest.py tests/test_docker_compose_security.py tests/test_scorer_logic.py -q",
+    "docker compose config -q for all eval compose files"
+  ],
+  "created_at_utc": "2026-06-16T22:32:20.525365+00:00",
+  "cwd": "/home/waylandlee/HoneyAgentBench",
+  "docker_image_tag": null,
+  "environment": {},
+  "eval_name": null,
+  "git_commit": null,
+  "manifest_version": 1,
+  "model": null,
+  "notes": [
+    "WSL .venv dependency restore complete; pytest full suite passed 53/53; phase1 focused tests passed 30/30; all eval compose files parsed by docker compose config."
+  ],
+  "phase": "phase1-engineering-asset-validation",
+  "project": "HoneyAgentBench",
+  "response_mode": null,
+  "result_files": [
+    {
+      "exists": true,
+      "path": "evals/multinode_enterprise_v3_seed_manifest.json",
+      "sha256": "9c0ccea9e8b2f891f56eff0fdbbbd383d73bf21e1ec42f73c8fd2b145ba7d8af",
+      "size_bytes": 5919
+    }
+  ],
+  "run_name": "engineering_asset_validation_20260617",
+  "scenario_seed": null,
+  "score_logs": [],
+  "variant_name": null
+}

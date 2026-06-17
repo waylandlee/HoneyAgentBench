@@ -1,0 +1,126 @@
+{
+  "command": [
+    "inspect score old logs with honeyagentbench/scorer_cli.py@honey_deception_scorer_cli",
+    "python scripts/aggregate_results.py --out-dir results/scorer_calibration_20260617 <rescored eval logs>",
+    "python -m pytest -q"
+  ],
+  "created_at_utc": "2026-06-17T00:50:33.305583+00:00",
+  "cwd": "/home/waylandlee/HoneyAgentBench",
+  "docker_image_tag": null,
+  "environment": {
+    "OPENAI_API_KEY": {
+      "present": false,
+      "redacted": false,
+      "value": null
+    }
+  },
+  "eval_name": "multinode-enterprise-v3",
+  "git_commit": null,
+  "manifest_version": 1,
+  "model": null,
+  "notes": [
+    "CLI scorer entrypoint added for saved log rescoring.",
+    "Aggregation now supports named scorer payloads beyond _scorer.",
+    "Full pytest passed: 55 tests."
+  ],
+  "phase": "phase4-scorer-calibration",
+  "project": "HoneyAgentBench",
+  "response_mode": "legacy-log-rescore",
+  "result_files": [
+    {
+      "exists": true,
+      "path": "results/scorer_calibration_20260617/rescored_logs/2026-05-20T08-32-19-rescored.eval",
+      "sha256": "d0e0cfd1861ef5af92f72d9eb08d47965b7e4f82b7f3005597e915f7c1f8dd1a",
+      "size_bytes": 36675
+    },
+    {
+      "exists": true,
+      "path": "results/scorer_calibration_20260617/rescored_logs/2026-05-20T08-41-12-rescored.eval",
+      "sha256": "59da31993cb8e93a8f0fba67617c5b06b45e536330bac4e996d3f1d39c3888ed",
+      "size_bytes": 42506
+    },
+    {
+      "exists": true,
+      "path": "results/scorer_calibration_20260617/rescored_logs/2026-05-20T09-38-49-rescored.eval",
+      "sha256": "d5d727b057a54aa0b5bbb01cffd26d13b07ca06bc8e933564cbd0f3983d4d8cd",
+      "size_bytes": 44503
+    },
+    {
+      "exists": true,
+      "path": "results/scorer_calibration_20260617/rescored_logs/2026-05-20T09-42-31-rescored.eval",
+      "sha256": "681472b9666617a15c5ce663007b6a7ba561f31d4e74655ebabad52731c3eef4",
+      "size_bytes": 43423
+    },
+    {
+      "exists": true,
+      "path": "results/scorer_calibration_20260617/scorer_calibration_notes.md",
+      "sha256": "dd2acce0f3526ddf220253dd01e319afd0fcfaa9eee6bafb116c1439257cd417",
+      "size_bytes": 1861
+    },
+    {
+      "exists": true,
+      "path": "honeyagentbench/scorer_cli.py",
+      "sha256": "4cc913d0748afb4cc9f004ef9841e4c4fc5541a27ab71ba21a47ca3c4011d630",
+      "size_bytes": 292
+    },
+    {
+      "exists": true,
+      "path": "honeyagentbench/scorers.py",
+      "sha256": "75b7c031d760e55c0dbfa1597bf0e519bb34fda3573bbcf900f9a62eb8fa6042",
+      "size_bytes": 33771
+    },
+    {
+      "exists": true,
+      "path": "scripts/aggregate_results.py",
+      "sha256": "b6d0d5ec1dfc39f7650a392c77f798bae59af222660064f06d8a090d8c4dc272",
+      "size_bytes": 15819
+    },
+    {
+      "exists": true,
+      "path": "tests/test_aggregate_results.py",
+      "sha256": "182c9400567cb474988723d26e334869f0fa25a6e8dfc1b27fd8dd8e3423b8e8",
+      "size_bytes": 1156
+    },
+    {
+      "exists": true,
+      "path": "results/scorer_calibration_20260617/summary.csv",
+      "sha256": "ef9198b01b5140312688570b5d2ecd49a6c1da4e6a67c15325c311de6cce98b1",
+      "size_bytes": 3778
+    },
+    {
+      "exists": true,
+      "path": "results/scorer_calibration_20260617/summary.md",
+      "sha256": "95ecaed5d6d990c8ac39f98e7688850f2e10ceff46bc55e220cb61165ff32368",
+      "size_bytes": 7130
+    }
+  ],
+  "run_name": "scorer-calibration-20260617",
+  "scenario_seed": null,
+  "score_logs": [
+    {
+      "exists": true,
+      "path": "logs/2026-05-20T08-32-19-00-00_honeyagent-pilot_o44pLRd9fDmFvJKRCdaACh.eval",
+      "sha256": "842a3aae011e8bfeef787845df0eaad59d09f921a9c2f852131057498fd75f4f",
+      "size_bytes": 36282
+    },
+    {
+      "exists": true,
+      "path": "logs/2026-05-20T08-41-12-00-00_honeyagent-pilot_X2jtwTsqzYRS8pdbnPmcvQ.eval",
+      "sha256": "f5f0d2367ad06ddb057c3fae2d201388dbdc70662c0c661a6516a6be9a10e2f1",
+      "size_bytes": 42060
+    },
+    {
+      "exists": true,
+      "path": "logs/2026-05-20T09-38-49-00-00_honeyagent-pilot_LMYuF6gHo6d3tgM5y4ABdM.eval",
+      "sha256": "6af5e3c6f6d1dd6c7c703cc86eaddc2e2d699fcc6fc18065ed61faedb2437210",
+      "size_bytes": 44154
+    },
+    {
+      "exists": true,
+      "path": "logs/2026-05-20T09-42-31-00-00_honeyagent-pilot_LVv77vJ3FYnft45nRhr4Pd.eval",
+      "sha256": "a894ba17b815aacb1e1e52e7b9d37dab9130c2bcf1d2f1882aca52ae28bf01a5",
+      "size_bytes": 42926
+    }
+  ],
+  "variant_name": null
+}

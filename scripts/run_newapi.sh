@@ -2,6 +2,8 @@
 set -euo pipefail
 
 MODEL="${1:-gpt-5.5}"
+EVAL_NAMES="${2:-}"
+VARIANT_NAMES="${3:-}"
 BASE_URL="${NEWAPI_BASE_URL:-https://api.ikuncode.cc/v1}"
 export XDG_DATA_HOME="${XDG_DATA_HOME:-/tmp/honeyagentbench_inspect_data}"
 
@@ -21,7 +23,19 @@ fi
 
 export OPENAI_API_KEY="${NEWAPI_API_KEY}"
 
+ARGS=(
 inspect eval honeyagentbench/tasks.py@honeyagent_pilot \
   --model "openai/${MODEL}" \
   --model-base-url "${BASE_URL}" \
   -T root_dir=evals
+)
+
+if [[ -n "${EVAL_NAMES}" ]]; then
+  ARGS+=(-T "eval_names=${EVAL_NAMES}")
+fi
+
+if [[ -n "${VARIANT_NAMES}" ]]; then
+  ARGS+=(-T "variant_names=${VARIANT_NAMES}")
+fi
+
+"${ARGS[@]}"

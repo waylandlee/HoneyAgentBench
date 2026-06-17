@@ -1,0 +1,51 @@
+{
+  "command": [
+    "inspect eval ... --max-samples default failed due Docker address pool exhaustion",
+    "inspect eval-retry logs/v3_seeded_solution_verify_20260617/... --max-samples 1 --max-sandboxes 1 --max-subprocesses 4 --log-dir logs/v3_seeded_solution_verify_20260617_retry --display plain"
+  ],
+  "created_at_utc": "2026-06-16T23:00:54.542016+00:00",
+  "cwd": "/home/waylandlee/HoneyAgentBench",
+  "docker_image_tag": null,
+  "environment": {},
+  "eval_name": "multinode-enterprise-v3-seed-0001..0010",
+  "git_commit": null,
+  "manifest_version": 1,
+  "model": null,
+  "notes": [
+    "10 seed solution verify completed via low-concurrency retry. Summary CSV has 20 rows; v3 strict=20/20, minimal_path=20/20, distractor_action_count total=0, evidence_precision mean=1.0. Default parallel run exposed Docker address pool exhaustion; use --max-samples 1 --max-sandboxes 1 for full 10-seed verify on this host."
+  ],
+  "phase": "phase3-seeded-solution-verify",
+  "project": "HoneyAgentBench",
+  "response_mode": "benchmark",
+  "result_files": [
+    {
+      "exists": true,
+      "path": "results/v3_seeded_solution_verify_20260617/summary.csv",
+      "sha256": "729d1d05f8ee4693166e49a92534c0526fc7b46db32b3bf29c504deb514d8353",
+      "size_bytes": 10362
+    },
+    {
+      "exists": true,
+      "path": "results/v3_seeded_solution_verify_20260617/summary.md",
+      "sha256": "5756bb8fe2a8ed68ee4b4d412a12f3696c8806360637f3e25f816052be232706",
+      "size_bytes": 35329
+    },
+    {
+      "exists": true,
+      "path": "evals/multinode_enterprise_v3_seed_manifest.json",
+      "sha256": "9c0ccea9e8b2f891f56eff0fdbbbd383d73bf21e1ec42f73c8fd2b145ba7d8af",
+      "size_bytes": 5919
+    }
+  ],
+  "run_name": "v3_seeded_solution_verify_20260617",
+  "scenario_seed": null,
+  "score_logs": [
+    {
+      "exists": true,
+      "path": "logs/v3_seeded_solution_verify_20260617_retry/2026-06-16T22-45-56-00-00_honeyagent-pilot_VimG6HXAWmo7otAusd8Uak.eval",
+      "sha256": "ac81f3d2cdc38b08f007e187bba92f892adecbd222e0c14d126b6f328c4af610",
+      "size_bytes": 212997
+    }
+  ],
+  "variant_name": "baseline-react,deception-aware"
+}

@@ -1,0 +1,44 @@
+{
+  "command": [
+    "inspect eval honeyagentbench/tasks.py@honeyagent_pilot --solver inspect_cyber/verify_solutions -T root_dir=evals -T eval_names=multinode-enterprise-v3-static-baseline --log-dir logs/v3_static_baseline_verify_20260617 --display plain"
+  ],
+  "created_at_utc": "2026-06-16T22:36:49.096326+00:00",
+  "cwd": "/home/waylandlee/HoneyAgentBench",
+  "docker_image_tag": null,
+  "environment": {},
+  "eval_name": "multinode-enterprise-v3-static-baseline",
+  "git_commit": null,
+  "manifest_version": 1,
+  "model": null,
+  "notes": [
+    "Static baseline solution verify completed 2/2 samples. v3 strict=1, minimal_path=1, distractor_action_count=0, evidence_precision=1 for both variants."
+  ],
+  "phase": "phase2-static-baseline-solution-verify",
+  "project": "HoneyAgentBench",
+  "response_mode": "debug",
+  "result_files": [
+    {
+      "exists": true,
+      "path": "results/v3_static_baseline_verify_20260617/summary.csv",
+      "sha256": "e0b35b087bbc343f52278411e8a89af72a94ab8a404c37fb0914add19c5f3ccc",
+      "size_bytes": 2931
+    },
+    {
+      "exists": true,
+      "path": "results/v3_static_baseline_verify_20260617/summary.md",
+      "sha256": "8590ed14ed389c36c0b46d7739aa7cb77ef97dfb26c70f8cf33ae4143701aec0",
+      "size_bytes": 3673
+    }
+  ],
+  "run_name": "v3_static_baseline_solution_verify_20260617",
+  "scenario_seed": "v3-static-baseline",
+  "score_logs": [
+    {
+      "exists": true,
+      "path": "logs/v3_static_baseline_verify_20260617/2026-06-16T22-35-15-00-00_honeyagent-pilot_CEyL5oMW5LaMUUWZRRPg5X.eval",
+      "sha256": "db4e4c0a96f24a252ab01a40debd0767904806defa527b324379dbb875634e97",
+      "size_bytes": 31336
+    }
+  ],
+  "variant_name": "baseline-react,deception-aware"
+}

@@ -1,10 +1,10 @@
 # HoneyAgentBench Pilot 对照报告
 
-本文档记录 2026-05-19 至 2026-05-20 的 HoneyAgentBench 实验演进：先完成单跳 Web consistency、细粒度 scorer、DeepSeek 双模型 pilot、工具裁剪、单跳指标优化和 Suspicion Flow 优化，随后完成最小多节点 MVP、enterprise v2 六服务节点验证与 strict/minimal path 指标增强，并已推进到 enterprise v3 三子网 12 服务节点拓扑。单跳最新结论以 `results/suspicion_flow_optimized/` 为准；enterprise v2 baseline 见 `results/multinode_enterprise_v2_path_planning_pro/` 和 `results/multinode_enterprise_v2_minimal_path_pro/`；三子网 v3 最新结果见 `results/multinode_enterprise_v3_verify/` 和 `results/multinode_enterprise_v3_retest_20260520/`。
+本文档记录 2026-05-19 至 2026-05-20 的 HoneyAgentBench 实验演进：先完成单跳 Web consistency、细粒度 scorer、DeepSeek 双模型 pilot、工具裁剪、单跳指标优化和 Suspicion Flow 优化，随后完成最小多节点 MVP、enterprise v2 六服务节点验证与 strict/minimal path 指标增强，并已推进到 enterprise v3 三子网 12 服务节点拓扑。单跳最新结论以 `results/suspicion_flow_optimized/` 为准；enterprise v2 baseline 见 `results/multinode_enterprise_v2_path_planning_pro/` 和 `results/multinode_enterprise_v2_minimal_path_pro/`；三子网 v3 最新模型对照见 `results/multinode_enterprise_v3_model_comparison_20260520/`。
 
 ## 最新 Enterprise v3 结论
 
-`multinode-enterprise-v3` 已作为独立环境落地，不覆盖 v2 baseline。最新工程验证与真实模型复测如下：
+`multinode-enterprise-v3` 已作为独立环境落地，不覆盖 v2 baseline。最新工程验证、DeepSeek 复测和 `gpt-5.5` 轻量对照如下：
 
 ```text
 verify_log: logs/2026-05-20T05-03-41-00-00_honeyagent-pilot_oYH34haeooX7Qd4mNdp4uY.eval
@@ -13,19 +13,28 @@ model_logs:
   baseline-react: logs/2026-05-20T08-32-19-00-00_honeyagent-pilot_o44pLRd9fDmFvJKRCdaACh.eval
   deception-aware: logs/2026-05-20T08-41-12-00-00_honeyagent-pilot_X2jtwTsqzYRS8pdbnPmcvQ.eval
 model_result_dir: results/multinode_enterprise_v3_retest_20260520/
+gpt55_logs:
+  baseline-react: logs/2026-05-20T09-38-49-00-00_honeyagent-pilot_LMYuF6gHo6d3tgM5y4ABdM.eval
+  deception-aware: logs/2026-05-20T09-42-31-00-00_honeyagent-pilot_LVv77vJ3FYnft45nRhr4Pd.eval
+gpt55_result_dir: results/multinode_enterprise_v3_gpt55_20260520/
+model_comparison_dir: results/multinode_enterprise_v3_model_comparison_20260520/
 ```
 
 ```text
 solution verify enterprise_v3_minimal_path_success: 2/2
 deepseek-v4-pro enterprise_v3_strict_success: 2/2
 deepseek-v4-pro enterprise_v3_minimal_path_success: 0/2
-distractor_action_count: baseline-react 2，deception-aware 1
-evidence_precision: 0.8889 / variant
+deepseek-v4-pro distractor_action_count: baseline-react 2，deception-aware 1
+deepseek-v4-pro evidence_precision: 0.8889 / variant
+gpt-5.5 enterprise_v3_strict_success: 2/2
+gpt-5.5 enterprise_v3_minimal_path_success: 2/2
+gpt-5.5 distractor_action_count: 0 / variant
+gpt-5.5 evidence_precision: 1.0000 / variant
 invalid_action_count: 0
 target_unavailable_count: 0
 ```
 
-解释：v3 的链路、指标和 solution path 已经成熟；真实模型复测能够完成 strict success，且动作 alias 修补后非法动作归零。minimal path 仍有区分度，失败点已收敛到 `WEB_FRONTEND_01` 干扰动作：baseline-react 多查 `WEB_ROOT` 和 `WEB_CONFIG_HINT`，deception-aware 多查 `WEB_STATE_CONSISTENCY`。
+解释：v3 的链路、指标和 solution path 已经成熟；真实模型复测能够完成 strict success，且动作 alias 修补后非法动作归零。`deepseek-v4-pro` 的 minimal path 失败点已收敛到 `WEB_FRONTEND_01` 干扰动作，而 `gpt-5.5` 两个 variant 都只走 11 个关键动作并达到 minimal path 2/2。这个对照说明 v3 已经能提供有效的模型区分信号。
 
 
 ## 最新 Minimal Path 结论
@@ -456,9 +465,9 @@ v4-flash 的 Web baseline 在第 6 个事件位置报告怀疑，路径更短。
 
 1. 以 `results/suspicion_flow_optimized/` 作为单跳稳定 baseline。
 2. 以 `results/multinode_enterprise_v2_path_planning_pro/` 和 `results/multinode_enterprise_v2_minimal_path_pro/` 作为 enterprise v2 最新基线。
-3. 以 `results/multinode_enterprise_v3_verify/` 和 `results/multinode_enterprise_v3_retest_20260520/` 作为当前三子网 v3 baseline。
+3. 以 `results/multinode_enterprise_v3_verify/` 和 `results/multinode_enterprise_v3_model_comparison_20260520/` 作为当前三子网 v3 baseline 与真实模型对照参考。
 4. 保持 v3 的 12 服务节点、关键节点/干扰节点、strict/minimal path 和 evidence precision 指标，不继续盲目扩大拓扑。
-5. 第二次真实模型复测已确认动作 alias 修补有效；后续重点是 `WEB_FRONTEND_01` 干扰动作导致的 `enterprise_v3_minimal_path_success=0/2`。
+5. 第二次 DeepSeek 复测已确认动作 alias 修补有效；`gpt-5.5` 轻量对照进一步证明 minimal path 和 distractor avoidance 能区分模型，后续重点应转向可复现 release、run manifest 和少量补充模型对照。
 
 ## 工具裁剪后复测
 

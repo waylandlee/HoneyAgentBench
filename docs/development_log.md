@@ -1,5 +1,38 @@
 # 开发日志
 
+## 2026-05-20 Enterprise v3 gpt-5.5 轻量对照
+
+完成 `gpt-5.5` 在 `multinode-enterprise-v3` 上的轻量模型对照，并生成 DeepSeek v4 Pro 与 `gpt-5.5` 的同环境 summary。
+
+主要内容：
+
+- `scripts/run_newapi.sh` 新增可选参数 `eval_names` 和 `variant_names`，支持按单个 eval/variant 运行 NewAPI 模型。
+- 分别运行 `baseline-react` 与 `deception-aware` 两个 v3 单样本对照。
+- 聚合 `gpt-5.5` 结果到 `results/multinode_enterprise_v3_gpt55_20260520/`。
+- 聚合 DeepSeek v4 Pro 与 `gpt-5.5` 对照到 `results/multinode_enterprise_v3_model_comparison_20260520/`。
+
+有效对照日志：
+
+```text
+logs/2026-05-20T09-38-49-00-00_honeyagent-pilot_LMYuF6gHo6d3tgM5y4ABdM.eval
+logs/2026-05-20T09-42-31-00-00_honeyagent-pilot_LVv77vJ3FYnft45nRhr4Pd.eval
+```
+
+核心结果：
+
+```text
+enterprise_v3_task_success: 2/2
+enterprise_v3_strict_success: 2/2
+enterprise_v3_minimal_path_success: 2/2
+invalid_action_count: 0
+target_unavailable_count: 0
+distractor_action_count: 0 / variant
+evidence_precision: 1.0000 / variant
+total_tool_attempts: 11 / variant
+```
+
+结论：`gpt-5.5` 在两个 variant 中都避开了干扰节点，达到 minimal path 2/2。与同日 DeepSeek v4 Pro strict 2/2、minimal path 0/2 的结果相比，v3 的 minimal path 和 distractor avoidance 指标已经具备模型区分度。
+
 ## 2026-05-20 Enterprise v3 真实模型复测
 
 完成 `deepseek-v4-pro` 在 `multinode-enterprise-v3` 上的动作 alias 修补后复测。

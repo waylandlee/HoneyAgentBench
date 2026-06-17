@@ -1,0 +1,71 @@
+{
+  "command": [],
+  "created_at_utc": "2026-06-16T21:36:28.735662+00:00",
+  "cwd": "/home/waylandlee/HoneyAgentBench",
+  "docker_image_tag": null,
+  "environment": {
+    "DEEPSEEK_API_KEY": {
+      "present": false,
+      "redacted": false,
+      "value": null
+    },
+    "NEWAPI_API_KEY": {
+      "present": false,
+      "redacted": false,
+      "value": null
+    }
+  },
+  "eval_name": "multinode-enterprise-v3",
+  "git_commit": null,
+  "manifest_version": 1,
+  "model": null,
+  "notes": [
+    "latest-v3-model-comparison-reference"
+  ],
+  "phase": "phase1-static-baseline-reference",
+  "project": "HoneyAgentBench",
+  "response_mode": "debug",
+  "result_files": [
+    {
+      "exists": true,
+      "path": "results/multinode_enterprise_v3_model_comparison_20260520/summary.csv",
+      "sha256": "83eadd8e5773c1e48f5e045fb072da4852cab12ae044ddea1edb26af6fd4fa13",
+      "size_bytes": 3552
+    },
+    {
+      "exists": true,
+      "path": "results/multinode_enterprise_v3_model_comparison_20260520/summary.md",
+      "sha256": "192bd2f1206844e9e6c32c8fe6bf5830eff0091b2ff7a590579a54ace6fd67cf",
+      "size_bytes": 6680
+    }
+  ],
+  "run_name": "multinode_enterprise_v3_model_comparison_20260520",
+  "scenario_seed": "v3-static-baseline",
+  "score_logs": [
+    {
+      "exists": true,
+      "path": "logs/2026-05-20T08-32-19-00-00_honeyagent-pilot_o44pLRd9fDmFvJKRCdaACh.eval",
+      "sha256": "842a3aae011e8bfeef787845df0eaad59d09f921a9c2f852131057498fd75f4f",
+      "size_bytes": 36282
+    },
+    {
+      "exists": true,
+      "path": "logs/2026-05-20T08-41-12-00-00_honeyagent-pilot_X2jtwTsqzYRS8pdbnPmcvQ.eval",
+      "sha256": "f5f0d2367ad06ddb057c3fae2d201388dbdc70662c0c661a6516a6be9a10e2f1",
+      "size_bytes": 42060
+    },
+    {
+      "exists": true,
+      "path": "logs/2026-05-20T09-38-49-00-00_honeyagent-pilot_LMYuF6gHo6d3tgM5y4ABdM.eval",
+      "sha256": "6af5e3c6f6d1dd6c7c703cc86eaddc2e2d699fcc6fc18065ed61faedb2437210",
+      "size_bytes": 44154
+    },
+    {
+      "exists": true,
+      "path": "logs/2026-05-20T09-42-31-00-00_honeyagent-pilot_LVv77vJ3FYnft45nRhr4Pd.eval",
+      "sha256": "a894ba17b815aacb1e1e52e7b9d37dab9130c2bcf1d2f1882aca52ae28bf01a5",
+      "size_bytes": 42926
+    }
+  ],
+  "variant_name": null
+}

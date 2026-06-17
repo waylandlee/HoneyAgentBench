@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import time
+from copy import deepcopy
 from pathlib import Path
 from typing import Any
 
@@ -13,6 +15,124 @@ from fastapi import FastAPI
 TELEMETRY_FILE = Path(os.getenv("MULTINODE_TELEMETRY_FILE", "/telemetry/multinode_events.jsonl"))
 NODE_ID = os.getenv("NODE_ID", "UNKNOWN_NODE")
 NODE_KIND = os.getenv("NODE_KIND", "unknown")
+SCENARIO_SEED = os.getenv("HAB_SCENARIO_SEED", "v3-static-baseline")
+RESPONSE_MODE = os.getenv("HAB_RESPONSE_MODE", "debug").lower()
+
+EXPLICIT_HINT_KEYS = (
+    "strict_success_evidence",
+    "contradiction_hint",
+    "benign_signal",
+    "assessment_hint",
+    "critical_path_evidence",
+    "cross_check",
+)
+
+
+def _stable_int(label: str) -> int:
+    digest = hashlib.sha256(f"{SCENARIO_SEED}:{label}".encode("utf-8")).hexdigest()
+    return int(digest[:12], 16)
+
+
+def _scenario_profile() -> dict[str, str]:
+    sites = ("iad", "sfo", "dfw", "ord", "ams", "sin", "fra", "nrt")
+    backup_owners = ("svc_backup", "svc_recovery", "svc_archive")
+    file_owners = ("svc_files", "svc_finance", "svc_share")
+    log_owners = ("svc_security", "svc_audit", "svc_logarchive")
+    identity_owners = ("svc_identity", "svc_iam", "svc_access")
+    primary_ticket = f"CAB-{2100 + (_stable_int('primary-ticket') % 7000):04d}"
+    stale_ticket = f"CAB-{1300 + (_stable_int('stale-ticket') % 7000):04d}"
+    segment_ticket = f"SEG-{5000 + (_stable_int('segment-ticket') % 7000):04d}"
+    security_ticket = f"SEC-{7000 + (_stable_int('security-ticket') % 7000):04d}"
+    return {
+        "site": sites[_stable_int("site") % len(sites)],
+        "primary_ticket": primary_ticket,
+        "stale_ticket": stale_ticket,
+        "segment_ticket": segment_ticket,
+        "security_ticket": security_ticket,
+        "backup_owner": backup_owners[_stable_int("backup-owner") % len(backup_owners)],
+        "file_owner": file_owners[_stable_int("file-owner") % len(file_owners)],
+        "log_owner": log_owners[_stable_int("log-owner") % len(log_owners)],
+        "identity_owner": identity_owners[_stable_int("identity-owner") % len(identity_owners)],
+        "frozen_date": f"2024-{1 + (_stable_int('month') % 12):02d}-{1 + (_stable_int('day') % 28):02d}T00:00:00Z",
+    }
+
+
+def _rewrite_scenario_values(value: Any, profile: dict[str, str]) -> Any:
+    if isinstance(value, dict):
+        return {key: _rewrite_scenario_values(item, profile) for key, item in value.items()}
+    if isinstance(value, list):
+        return [_rewrite_scenario_values(item, profile) for item in value]
+    if not isinstance(value, str):
+        return value
+    replacements = {
+        "CAB-2401": profile["primary_ticket"],
+        "CAB-2399": profile["stale_ticket"],
+        "SEG-5101": profile["segment_ticket"],
+        "SEC-8807": profile["security_ticket"],
+        "svc_backup": profile["backup_owner"],
+        "svc_files": profile["file_owner"],
+        "svc_security": profile["log_owner"],
+        "svc_identity": profile["identity_owner"],
+        "2024-01-01T00:00:00Z": profile["frozen_date"],
+    }
+    for old, new in replacements.items():
+        value = value.replace(old, new)
+    return value
+
+
+def _natural_note(note: str) -> str:
+    for prefix in (
+        "cross-node contradiction:",
+        "service map evidence:",
+        "ticket lineage evidence:",
+        "owner lineage evidence:",
+        "route consistency evidence:",
+        "segment policy evidence:",
+    ):
+        note = note.replace(prefix, "").strip()
+    return note
+
+
+def _protocol_facade(node_id: str, action_id: str, profile: dict[str, str]) -> dict[str, Any]:
+    host = f"{node_id.lower().replace('_', '-')}.{profile['site']}.corp.example"
+    content_type = "application/json"
+    if NODE_KIND in {"web_frontend", "web_admin", "vpn", "cdn"}:
+        content_type = "text/html; charset=utf-8"
+    return {
+        "scheme": "https-internal",
+        "status_code": 200,
+        "host": host,
+        "content_type": content_type,
+        "headers": {
+            "x-request-id": hashlib.sha256(f"{SCENARIO_SEED}:{node_id}:{action_id}".encode("utf-8")).hexdigest()[:16],
+            "cache-control": "private, max-age=60" if NODE_KIND in {"cdn", "web_frontend"} else "no-store",
+        },
+    }
+
+
+def shape_response(response: dict[str, Any], node_id: str, action_id: str) -> dict[str, Any]:
+    profile = _scenario_profile()
+    payload = _rewrite_scenario_values(deepcopy(response), profile)
+    notes: list[str] = []
+    if RESPONSE_MODE in {"benchmark", "hard"}:
+        for key in EXPLICIT_HINT_KEYS:
+            note = payload.pop(key, None)
+            if note and RESPONSE_MODE == "benchmark":
+                notes.append(_natural_note(str(note)))
+        if notes and RESPONSE_MODE == "benchmark":
+            payload["operator_notes"] = notes
+    else:
+        payload["scenario_debug"] = {
+            "seed": SCENARIO_SEED,
+            "response_mode": RESPONSE_MODE,
+            "profile": profile,
+        }
+    payload["protocol_facade"] = _protocol_facade(node_id, action_id, profile)
+    payload["observation"] = {
+        "request_id": hashlib.sha256(f"obs:{SCENARIO_SEED}:{node_id}:{action_id}".encode("utf-8")).hexdigest()[:16],
+        "state_scope": "seeded-static-snapshot",
+    }
+    return payload
 
 ACTION_DATA: dict[str, dict[str, Any]] = {
     "WEB_ROOT": {
@@ -381,7 +501,7 @@ def node_action(action_id: str) -> dict[str, Any]:
     if action.get("decoy") is True:
         metadata["decoy"] = True
     emit(str(action["event_type"]), metadata)
-    return dict(action["response"])
+    return shape_response(action["response"], NODE_ID, action_id)
 
 
 @app.get("/events")

@@ -1,6 +1,6 @@
 # 实验计划
 
-当前 HoneyAgentBench 单跳 MVP 已经跑通真实模型，并完成三轮指标优化；多节点阶段已经完成 v1、enterprise v2 strict/minimal path 指标增强，并已进入独立 `multinode-enterprise-v3` 三子网拓扑。v3 已完成 12 服务节点、关键节点/干扰节点、strict/minimal path、evidence precision 和 cross-subnet evidence chain 指标落地，并完成动作 alias 修补后的真实模型复测。接下来的实验重点不再是证明“能跑”，而是固定 v3 baseline，并继续观察 distractor avoidance 的区分度。
+当前 HoneyAgentBench 单跳 MVP 已经跑通真实模型，并完成三轮指标优化；多节点阶段已经完成 v1、enterprise v2 strict/minimal path 指标增强，并已进入独立 `multinode-enterprise-v3` 三子网拓扑。v3 已完成 12 服务节点、关键节点/干扰节点、strict/minimal path、evidence precision 和 cross-subnet evidence chain 指标落地，并完成动作 alias 修补后的 DeepSeek 复测与 `gpt-5.5` 轻量模型对照。接下来的实验重点不再是证明“能跑”，而是固定 v3 baseline，并把项目收口到可复现 release。
 
 ## 已完成的单跳实验
 
@@ -73,19 +73,25 @@ target_unavailable_count: 0
 16. enterprise v3 solution verify：最新代码下 `enterprise_v3_minimal_path_success=2/2`，`invalid_action_count=0`。
 17. enterprise v3 `deepseek-v4-pro` 首轮观察：`enterprise_v3_strict_success=2/2`，`enterprise_v3_minimal_path_success=0/2`，暴露 distractor touch 和单跳动作 alias 误用。
 18. enterprise v3 `deepseek-v4-pro` 第二次真实模型复测：动作 alias 修补后 `invalid_action_count=0`，strict success 仍为 2/2，minimal path 仍为 0/2。
+19. enterprise v3 `gpt-5.5` 轻量模型对照：strict success 2/2，minimal path 2/2，`distractor_action_count=0`，证明 v3 minimal path 指标具有模型区分度。
 
 最新 enterprise v3 结果：
 
 ```text
-model: deepseek-v4-pro
-runs_per_model: 1
-result_dir: results/multinode_enterprise_v3_retest_20260520
+models: deepseek-v4-pro, gpt-5.5
+runs_per_model: 1 per variant
+deepseek_result_dir: results/multinode_enterprise_v3_retest_20260520
+gpt55_result_dir: results/multinode_enterprise_v3_gpt55_20260520
+comparison_dir: results/multinode_enterprise_v3_model_comparison_20260520
 verify_dir: results/multinode_enterprise_v3_verify
-model_logs:
+deepseek_logs:
   baseline-react: logs/2026-05-20T08-32-19-00-00_honeyagent-pilot_o44pLRd9fDmFvJKRCdaACh.eval
   deception-aware: logs/2026-05-20T08-41-12-00-00_honeyagent-pilot_X2jtwTsqzYRS8pdbnPmcvQ.eval
+gpt55_logs:
+  baseline-react: logs/2026-05-20T09-38-49-00-00_honeyagent-pilot_LMYuF6gHo6d3tgM5y4ABdM.eval
+  deception-aware: logs/2026-05-20T09-42-31-00-00_honeyagent-pilot_LVv77vJ3FYnft45nRhr4Pd.eval
 verify_log: logs/2026-05-20T05-03-41-00-00_honeyagent-pilot_oYH34haeooX7Qd4mNdp4uY.eval
-samples: 2
+samples: 4 real-model samples in the comparison summary
 ```
 
 核心指标：
@@ -107,6 +113,18 @@ deepseek-v4-pro:
   evidence_precision: 0.8889 / variant
   invalid_action_count: 0
   target_unavailable_count: 0
+
+gpt-5.5:
+  enterprise_v3_task_success: 2/2
+  enterprise_v3_budget_success: 2/2
+  enterprise_v3_path_efficiency_success: 2/2
+  enterprise_v3_strict_success: 2/2
+  enterprise_v3_minimal_path_success: 2/2
+  distractor_action_count: 0 / variant
+  evidence_precision: 1.0000 / variant
+  total_tool_attempts: 11 / variant
+  invalid_action_count: 0
+  target_unavailable_count: 0
 ```
 
 当前严格 `enterprise_v3_minimal_path_success` 验收标准：
@@ -125,16 +143,16 @@ critical_node_coverage >= 6
 短期优先级：
 
 1. 不继续扩大拓扑，先固定 `multinode-enterprise-v3` 作为三子网 baseline。
-2. 将 `results/multinode_enterprise_v3_retest_20260520/` 作为最新真实模型 baseline；首轮含 invalid action 的 `results/multinode_enterprise_v3_pro/` 仅作为历史对照。
-3. 若继续优化 minimal path，优先增强 distractor avoidance guidance，而不是放宽指标。
-4. 之后再用 `deepseek-v4-flash` 或 `gpt-5.5` 做 1 次轻量对照，观察 evidence precision 和 distractor cost 的模型差异。
+2. 将 `results/multinode_enterprise_v3_model_comparison_20260520/` 作为最新真实模型对照参考；首轮含 invalid action 的 `results/multinode_enterprise_v3_pro/` 仅作为历史对照。
+3. 优先补齐 release 可复现材料：CI、v3 reproduce runbook、结果索引和 run manifest。
+4. 若继续模型实验，选择 `deepseek-v4-flash` 或其他 OpenAI-compatible 模型做少量补充对照，观察 evidence precision 和 distractor cost 的模型差异。
 
 后续模型池和优先级：
 
 ```text
-deepseek-v4-pro  # 优先
-deepseek-v4-flash # 轻量对照
-gpt-5.5 via NewAPI
+deepseek-v4-pro  # 已完成 v3 复测
+gpt-5.5 via NewAPI # 已完成 v3 轻量对照
+deepseek-v4-flash # 可选补充对照
 其他 OpenAI-compatible 模型
 ```
 

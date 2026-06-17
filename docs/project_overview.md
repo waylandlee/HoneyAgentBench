@@ -139,7 +139,7 @@ target_unavailable_count: 0
 
 ## 当前多节点结果
 
-多节点阶段已经完成最小多节点 MVP、难度增强 v1、enterprise v2 六服务节点验证、v2 strict/minimal path 指标增强，并已进入 enterprise v3 三子网拓扑。v3 已完成 solution verify、`deepseek-v4-pro` 首轮真实模型观察和第二次真实模型复测。
+多节点阶段已经完成最小多节点 MVP、难度增强 v1、enterprise v2 六服务节点验证、v2 strict/minimal path 指标增强，并已进入 enterprise v3 三子网拓扑。v3 已完成 solution verify、`deepseek-v4-pro` 首轮真实模型观察、动作 alias 修补后的第二次真实模型复测，以及 `gpt-5.5` 轻量模型对照。
 
 ```text
 verify_result_dir: results/multinode_enterprise_v3_verify
@@ -148,7 +148,13 @@ model_result_dir: results/multinode_enterprise_v3_retest_20260520
 model_logs:
   baseline-react: logs/2026-05-20T08-32-19-00-00_honeyagent-pilot_o44pLRd9fDmFvJKRCdaACh.eval
   deception-aware: logs/2026-05-20T08-41-12-00-00_honeyagent-pilot_X2jtwTsqzYRS8pdbnPmcvQ.eval
-samples: 2
+gpt55_result_dir: results/multinode_enterprise_v3_gpt55_20260520
+comparison_dir: results/multinode_enterprise_v3_model_comparison_20260520
+gpt55_logs:
+  baseline-react: logs/2026-05-20T09-38-49-00-00_honeyagent-pilot_LMYuF6gHo6d3tgM5y4ABdM.eval
+  deception-aware: logs/2026-05-20T09-42-31-00-00_honeyagent-pilot_LVv77vJ3FYnft45nRhr4Pd.eval
+deepseek_samples: 2
+gpt55_samples: 2
 variants: baseline-react, deception-aware
 ```
 
@@ -170,9 +176,20 @@ deepseek-v4-pro v3:
   evidence_precision: 0.8889 / variant
   invalid_action_count: 0
   target_unavailable_count: 0
+
+gpt-5.5 v3:
+  enterprise_v3_task_success: 2/2
+  enterprise_v3_strict_success: 2/2
+  enterprise_v3_minimal_path_success: 2/2
+  critical_node_coverage: 8 / variant
+  distractor_action_count: 0 / variant
+  evidence_precision: 1.0000 / variant
+  total_tool_attempts: 11 / variant
+  invalid_action_count: 0
+  target_unavailable_count: 0
 ```
 
-这说明 v3 已经不再只是设计计划：工程链路、scorer、summary 和 Docker/Inspect 验证均可用。真实模型能完成 v3 strict success，动作 alias 修补后 `invalid_action_count` 已归零；minimal path 仍失败，说明关键节点选择和干扰项规避仍能提供区分信号。
+这说明 v3 已经不再只是设计计划：工程链路、scorer、summary 和 Docker/Inspect 验证均可用。真实模型能完成 v3 strict success，动作 alias 修补后 `invalid_action_count` 已归零；DeepSeek 与 `gpt-5.5` 在 minimal path 上出现 0/2 与 2/2 的差异，说明关键节点选择和干扰项规避已经能提供模型区分信号。
 
 ## 项目不是做什么
 
@@ -196,5 +213,5 @@ HoneyAgentBench 的核心价值在于：用安全受控的方式研究 LLM agent
 单跳环境、最小多节点 v1、enterprise v2 和 enterprise v3 都已可作为分层 baseline。下一阶段不应继续盲目扩大拓扑，而应围绕 v3 区分度做两件事：
 
 - 固定当前 v3 baseline：保留 12 节点、关键节点/干扰节点、strict/minimal path、evidence precision 和 cross-subnet evidence chain 指标。
-- 使用 `results/multinode_enterprise_v3_retest_20260520/` 作为最新真实模型 baseline，后续只做少量对照模型或 distractor avoidance 实验。
-- 若所有模型 minimal path 接近满分，再增强隐蔽矛盾和良性解释；在此之前不继续增加节点。
+- 使用 `results/multinode_enterprise_v3_model_comparison_20260520/` 作为最新真实模型对照参考，后续只做少量补充模型或 distractor avoidance 实验。
+- 若更多模型 minimal path 接近满分，再增强隐蔽矛盾和良性解释；在此之前不继续增加节点。

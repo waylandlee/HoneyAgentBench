@@ -13,6 +13,7 @@
 - Docker/Inspect solution verify。
 - `deepseek-v4-pro` 首轮真实模型观察。
 - `deepseek-v4-pro` 动作 alias 修补后第二次真实模型复测。
+- `gpt-5.5` 轻量模型对照。
 
 最新验证：
 
@@ -36,6 +37,19 @@ enterprise_v3_minimal_path_success: 0/2
 distractor_action_count: baseline-react 2，deception-aware 1
 invalid_action_count: 0
 target_unavailable_count: 0
+```
+
+最新真实模型对照：
+
+```text
+gpt55_result_dir: results/multinode_enterprise_v3_gpt55_20260520/
+comparison_dir: results/multinode_enterprise_v3_model_comparison_20260520/
+gpt55_logs:
+  baseline-react: logs/2026-05-20T09-38-49-00-00_honeyagent-pilot_LMYuF6gHo6d3tgM5y4ABdM.eval
+  deception-aware: logs/2026-05-20T09-42-31-00-00_honeyagent-pilot_LVv77vJ3FYnft45nRhr4Pd.eval
+gpt-5.5 enterprise_v3_strict_success: 2/2
+gpt-5.5 enterprise_v3_minimal_path_success: 2/2
+gpt-5.5 distractor_action_count: 0 / variant
 ```
 
 ## 扩展前提

@@ -10,3 +10,10 @@ __pycache__/
 logs/
 
 .DS_Store
+.venv/
+venv/
+.coverage
+htmlcov/
+build/
+dist/
+*.eval

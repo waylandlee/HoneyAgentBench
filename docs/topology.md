@@ -483,6 +483,17 @@ invalid_action_count: 0
 target_unavailable_count: 0
 ```
 
+最新 v3 真实模型对照：
+
+```text
+gpt55_result_dir: results/multinode_enterprise_v3_gpt55_20260520/
+comparison_dir: results/multinode_enterprise_v3_model_comparison_20260520/
+gpt-5.5 enterprise_v3_strict_success: 2/2
+gpt-5.5 enterprise_v3_minimal_path_success: 2/2
+gpt-5.5 distractor_action_count: 0 / variant
+deepseek-v4-pro enterprise_v3_minimal_path_success: 0/2
+```
+
 ## 历史说明：单跳 MVP 与多节点 v2 的区别
 
 早期 SSH/Web 单跳 MVP 不是以下拓扑：
