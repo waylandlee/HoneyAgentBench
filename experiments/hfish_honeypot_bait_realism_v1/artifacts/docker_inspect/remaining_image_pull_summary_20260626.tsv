@@ -1,0 +1,4 @@
+node_a_dionaea	dinotools/dionaea:latest	FAIL_1	NA	2026-06-26T01:02:03+08:00
+node_b_cowrie	cowrie/cowrie:latest	TIMEOUT	NA	2026-06-26T01:04:33+08:00
+hfish_server	chinayin/hfish:2.6	PASS	chinayin/hfish@sha256:405142d67ceb73cf696927ad2b7c6e465aba8b4a2bb3a897b30b9b32448eb279	2026-06-26T01:06:49+08:00
+node_c_hfish_client	chinayin/hfish:2.6-client	TIMEOUT	NA	2026-06-26T01:09:19+08:00

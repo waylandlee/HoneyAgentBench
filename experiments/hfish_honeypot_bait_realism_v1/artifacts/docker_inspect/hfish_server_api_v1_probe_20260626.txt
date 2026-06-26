@@ -1,0 +1,28 @@
+PATH=/api/v1/captcha
+HTTP/1.1 404 Not Found
+Content-Type: text/plain
+Date: Thu, 25 Jun 2026 19:35:58 GMT
+Content-Length: 18
+
+404 page not found
+PATH=/api/v1/settings/server
+HTTP/1.1 404 Not Found
+Content-Type: text/plain
+Date: Thu, 25 Jun 2026 19:35:58 GMT
+Content-Length: 18
+
+404 page not found
+PATH=/api/v1/addr/list
+HTTP/1.1 404 Not Found
+Content-Type: text/plain
+Date: Thu, 25 Jun 2026 19:35:58 GMT
+Content-Length: 18
+
+404 page not found
+PATH=/api/v1/clients
+HTTP/1.1 404 Not Found
+Content-Type: text/plain
+Date: Thu, 25 Jun 2026 19:35:58 GMT
+Content-Length: 18
+
+404 page not found

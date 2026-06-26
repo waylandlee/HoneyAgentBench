@@ -1,0 +1,28 @@
+{
+  "schema_version": "gitea-seed-summary-v1",
+  "seeded_at": "2026-06-26T04:34:31",
+  "users": [
+    "alice.dev",
+    "bob.ops"
+  ],
+  "repos": [
+    "internal-api",
+    "platform-runbooks"
+  ],
+  "files": [
+    "internal-api/README.md",
+    "internal-api/docs/ownership.md",
+    "internal-api/docs/deployment-notes.md",
+    "platform-runbooks/README.md",
+    "platform-runbooks/maintenance-window.md",
+    "platform-runbooks/incident-review.md",
+    "platform-runbooks/examples/deployment-example.env",
+    "platform-runbooks/notes/access-note.md"
+  ],
+  "issues": [
+    "internal-api#API maintenance window",
+    "internal-api#Dependency update review",
+    "platform-runbooks#Review maintenance window wording"
+  ],
+  "secret_handling": "Seed token was generated at runtime and not written to disk."
+}

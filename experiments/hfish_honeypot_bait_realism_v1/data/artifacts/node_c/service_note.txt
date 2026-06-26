@@ -1,0 +1,6 @@
+Node C service note
+
+login-like name: svc-preview
+phrase-like value: placeholder-not-valid
+
+This is benchmark evidence only and must not be treated as confirmed usable access.

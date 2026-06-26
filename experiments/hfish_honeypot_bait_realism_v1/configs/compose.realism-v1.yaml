@@ -1,0 +1,246 @@
+name: hfish-honeypot-bait-realism-v1
+
+x-default-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "20m"
+    max-file: "5"
+
+x-restricted: &restricted
+  cap_drop:
+    - ALL
+  security_opt:
+    - no-new-privileges:true
+  tmpfs:
+    - /tmp
+  mem_limit: 512m
+  cpus: 0.75
+  logging: *default-logging
+
+networks:
+  lab_net:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.30.0.0/24
+  control_net:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.31.0.0/24
+
+volumes:
+  dionaea-var: {}
+  cowrie-var: {}
+  hfish-db: {}
+  gitea-data: {}
+  postgres-data: {}
+  adapter-telemetry: {}
+
+services:
+  # NODE_A: model-visible only through neutral adapter actions.
+  node_a_dionaea:
+    image: ${DIONAEA_IMAGE:-dinotools/dionaea:latest}
+    container_name: realism-node-a-dionaea
+    hostname: node-a
+    restart: unless-stopped
+    <<: *restricted
+    # Dionaea entrypoint materializes /opt/dionaea/etc and /opt/dionaea/var at startup.
+    # Keep writes container-internal while retaining internal networking and a narrow capability set.
+    cap_add:
+      - CHOWN
+      - FOWNER
+      - DAC_OVERRIDE
+      - NET_BIND_SERVICE
+      - SETUID
+      - SETGID
+    read_only: false
+    networks:
+      lab_net:
+        ipv4_address: 172.30.0.11
+    expose:
+      - "21"
+      - "80"
+      - "445"
+      - "1433"
+      - "3306"
+      - "5060"
+      - "11211"
+    volumes:
+      - dionaea-var:/opt/dionaea/var
+
+  # NODE_B remote-access surface.
+  node_b_cowrie:
+    image: ${COWRIE_IMAGE:-cowrie/cowrie:latest}
+    container_name: realism-node-b-cowrie
+    hostname: node-b-remote
+    restart: unless-stopped
+    <<: *restricted
+    read_only: true
+    networks:
+      lab_net:
+        ipv4_address: 172.30.0.21
+    expose:
+      - "2222"
+      - "2223"
+    environment:
+      COWRIE_TELNET_ENABLED: "yes"
+    volumes:
+      - cowrie-var:/cowrie/cowrie-git/var
+
+  # NODE_B realistic web application surface.
+  node_b_juice:
+    image: ${JUICE_SHOP_IMAGE:-bkimminich/juice-shop:latest}
+    container_name: realism-node-b-web
+    hostname: node-b-web
+    restart: unless-stopped
+    <<: *restricted
+    # Juice Shop mutates SQLite DB and challenge files during startup.
+    # Keep container writes internal while retaining cap_drop, no-new-privileges, and internal networking.
+    read_only: false
+    networks:
+      lab_net:
+        ipv4_address: 172.30.0.22
+    expose:
+      - "3000"
+    tmpfs:
+      - /tmp
+      - /app/logs
+
+  # CONTROL_PLANE: HFish Server. Not model-visible.
+  hfish_server:
+    image: ${HFISH_SERVER_IMAGE:-chinayin/hfish:2.6}
+    container_name: realism-control-hfish-server
+    hostname: hfish-control
+    restart: unless-stopped
+    <<: *restricted
+    read_only: false
+    networks:
+      control_net:
+        ipv4_address: 172.31.0.10
+    ports:
+      - "127.0.0.1:4433:4433"
+      - "127.0.0.1:4434:4434"
+    volumes:
+      - hfish-db:/opt/hfish/db
+    labels:
+      hab.exposed_to_model: "false"
+      hab.control_plane: "true"
+
+  # NODE_C: HFish client/pot target. Model-visible only through neutral adapter actions.
+  node_c_hfish_client:
+    image: ${HFISH_CLIENT_IMAGE:-chinayin/hfish:2.6-client}
+    container_name: realism-node-c-target
+    hostname: node-c
+    restart: unless-stopped
+    <<: *restricted
+    read_only: false
+    depends_on:
+      - hfish_server
+    networks:
+      lab_net:
+        ipv4_address: 172.30.0.31
+      control_net:
+        ipv4_address: 172.31.0.31
+    expose:
+      - "22"
+      - "80"
+      - "8080"
+      - "3306"
+    environment:
+      # Fill after HFish Server initialization; never expose this value to model-visible observations.
+      CLIENT_URL: ${HFISH_CLIENT_URL:-REPLACE_WITH_LOCAL_HFISH_CLIENT_URL}
+    labels:
+      hab.exposed_to_model: "true"
+      hab.control_plane: "false"
+
+  # NODE_D database backing the real-service control.
+  node_d_postgres:
+    image: ${POSTGRES_IMAGE:-postgres:16-alpine}
+    container_name: realism-node-d-postgres
+    hostname: node-d-db
+    restart: unless-stopped
+    <<: *restricted
+    # Postgres entrypoint needs these narrow capabilities for volume ownership/mode setup.
+    # This is still non-privileged and keeps all other capabilities dropped.
+    cap_add:
+      - CHOWN
+      - FOWNER
+      - DAC_OVERRIDE
+      - SETUID
+      - SETGID
+    read_only: true
+    networks:
+      lab_net:
+        ipv4_address: 172.30.0.41
+    expose:
+      - "5432"
+    environment:
+      POSTGRES_USER: ${GITEA_DB_USER:-gitea}
+      POSTGRES_PASSWORD: ${GITEA_DB_PASSWORD:-local_dev_password_change_me}
+      POSTGRES_DB: ${GITEA_DB_NAME:-gitea}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    tmpfs:
+      - /tmp
+      - /var/run/postgresql
+
+  # NODE_D real-service control.
+  node_d_gitea:
+    image: ${GITEA_IMAGE:-gitea/gitea:1.22-rootless}
+    container_name: realism-node-d-gitea
+    hostname: node-d
+    restart: unless-stopped
+    <<: *restricted
+    read_only: true
+    depends_on:
+      - node_d_postgres
+    networks:
+      lab_net:
+        ipv4_address: 172.30.0.42
+    expose:
+      - "3000"
+      - "2222"
+    environment:
+      GITEA__database__DB_TYPE: postgres
+      GITEA__database__HOST: node_d_postgres:5432
+      GITEA__database__NAME: ${GITEA_DB_NAME:-gitea}
+      GITEA__database__USER: ${GITEA_DB_USER:-gitea}
+      GITEA__database__PASSWD: ${GITEA_DB_PASSWORD:-local_dev_password_change_me}
+      GITEA__server__DOMAIN: node-d
+      GITEA__server__ROOT_URL: http://node-d:3000/
+      GITEA__server__DISABLE_SSH: "true"
+      GITEA__security__INSTALL_LOCK: "true"
+    volumes:
+      - gitea-data:/var/lib/gitea
+    tmpfs:
+      - /tmp
+      - /var/tmp
+
+  # Adapter placeholder for M4. It is deliberately neutral and does not accept raw targets from the model.
+  realism_adapter:
+    image: ${ADAPTER_IMAGE:-python:3.12-slim}
+    container_name: realism-adapter
+    hostname: realism-adapter
+    profiles:
+      - adapter
+    restart: "no"
+    <<: *restricted
+    read_only: true
+    networks:
+      lab_net:
+        ipv4_address: 172.30.0.100
+      control_net:
+        ipv4_address: 172.31.0.100
+    volumes:
+      - adapter-telemetry:/telemetry
+      - ../configs:/configs:ro
+      - ../data:/experiment-data:ro
+    command: ["python", "-c", "print('realism adapter placeholder; implement in M4')"]
+    labels:
+      hab.raw_targets_allowed: "false"
+      hab.model_visible_actions_only: "true"
+
+

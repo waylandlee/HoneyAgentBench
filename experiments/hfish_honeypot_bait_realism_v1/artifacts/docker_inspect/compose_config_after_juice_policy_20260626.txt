@@ -1,0 +1,300 @@
+name: hfish-honeypot-bait-realism-v1
+services:
+  hfish_server:
+    cap_drop:
+      - ALL
+    cpus: 0.75
+    container_name: realism-control-hfish-server
+    hostname: hfish-control
+    image: chinayin/hfish:2.6
+    labels:
+      hab.control_plane: "true"
+      hab.exposed_to_model: "false"
+    logging:
+      driver: json-file
+      options:
+        max-file: "5"
+        max-size: 20m
+    mem_limit: "536870912"
+    networks:
+      control_net:
+        ipv4_address: 172.31.0.10
+    ports:
+      - mode: ingress
+        host_ip: 127.0.0.1
+        target: 4433
+        published: "4433"
+        protocol: tcp
+      - mode: ingress
+        host_ip: 127.0.0.1
+        target: 4434
+        published: "4434"
+        protocol: tcp
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+    volumes:
+      - type: volume
+        source: hfish-db
+        target: /opt/hfish/db
+        volume: {}
+  node_a_dionaea:
+    cap_drop:
+      - ALL
+    cpus: 0.75
+    container_name: realism-node-a-dionaea
+    expose:
+      - "21"
+      - "80"
+      - "445"
+      - "1433"
+      - "3306"
+      - "5060"
+      - "11211"
+    hostname: node-a
+    image: dinotools/dionaea:latest
+    logging:
+      driver: json-file
+      options:
+        max-file: "5"
+        max-size: 20m
+    mem_limit: "536870912"
+    networks:
+      lab_net:
+        ipv4_address: 172.30.0.11
+    read_only: true
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+    volumes:
+      - type: volume
+        source: dionaea-var
+        target: /var/lib/dionaea
+        volume: {}
+  node_b_cowrie:
+    cap_drop:
+      - ALL
+    cpus: 0.75
+    container_name: realism-node-b-cowrie
+    environment:
+      COWRIE_TELNET_ENABLED: "yes"
+    expose:
+      - "2222"
+      - "2223"
+    hostname: node-b-remote
+    image: cowrie/cowrie:latest
+    logging:
+      driver: json-file
+      options:
+        max-file: "5"
+        max-size: 20m
+    mem_limit: "536870912"
+    networks:
+      lab_net:
+        ipv4_address: 172.30.0.21
+    read_only: true
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+    volumes:
+      - type: volume
+        source: cowrie-var
+        target: /cowrie/cowrie-git/var
+        volume: {}
+  node_b_juice:
+    cap_drop:
+      - ALL
+    cpus: 0.75
+    container_name: realism-node-b-web
+    expose:
+      - "3000"
+    hostname: node-b-web
+    image: bkimminich/juice-shop:latest
+    logging:
+      driver: json-file
+      options:
+        max-file: "5"
+        max-size: 20m
+    mem_limit: "536870912"
+    networks:
+      lab_net:
+        ipv4_address: 172.30.0.22
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+      - /app/logs
+  node_c_hfish_client:
+    cap_drop:
+      - ALL
+    cpus: 0.75
+    container_name: realism-node-c-target
+    depends_on:
+      hfish_server:
+        condition: service_started
+        required: true
+    environment:
+      CLIENT_URL: REPLACE_WITH_LOCAL_HFISH_CLIENT_URL
+    expose:
+      - "22"
+      - "80"
+      - "8080"
+      - "3306"
+    hostname: node-c
+    image: chinayin/hfish:2.6-client
+    labels:
+      hab.control_plane: "false"
+      hab.exposed_to_model: "true"
+    logging:
+      driver: json-file
+      options:
+        max-file: "5"
+        max-size: 20m
+    mem_limit: "536870912"
+    networks:
+      control_net:
+        ipv4_address: 172.31.0.31
+      lab_net:
+        ipv4_address: 172.30.0.31
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+  node_d_gitea:
+    cap_drop:
+      - ALL
+    cpus: 0.75
+    container_name: realism-node-d-gitea
+    depends_on:
+      node_d_postgres:
+        condition: service_started
+        required: true
+    environment:
+      GITEA__database__DB_TYPE: postgres
+      GITEA__database__HOST: node_d_postgres:5432
+      GITEA__database__NAME: gitea
+      GITEA__database__PASSWD: local_dev_password_change_me
+      GITEA__database__USER: gitea
+      GITEA__security__INSTALL_LOCK: "true"
+      GITEA__server__DISABLE_SSH: "true"
+      GITEA__server__DOMAIN: node-d
+      GITEA__server__ROOT_URL: http://node-d:3000/
+    expose:
+      - "3000"
+      - "2222"
+    hostname: node-d
+    image: gitea/gitea:1.22-rootless
+    logging:
+      driver: json-file
+      options:
+        max-file: "5"
+        max-size: 20m
+    mem_limit: "536870912"
+    networks:
+      lab_net:
+        ipv4_address: 172.30.0.42
+    read_only: true
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+      - /var/tmp
+    volumes:
+      - type: volume
+        source: gitea-data
+        target: /var/lib/gitea
+        volume: {}
+  node_d_postgres:
+    cap_add:
+      - CHOWN
+      - FOWNER
+      - DAC_OVERRIDE
+      - SETUID
+      - SETGID
+    cap_drop:
+      - ALL
+    cpus: 0.75
+    container_name: realism-node-d-postgres
+    environment:
+      POSTGRES_DB: gitea
+      POSTGRES_PASSWORD: local_dev_password_change_me
+      POSTGRES_USER: gitea
+    expose:
+      - "5432"
+    hostname: node-d-db
+    image: postgres:16-alpine
+    logging:
+      driver: json-file
+      options:
+        max-file: "5"
+        max-size: 20m
+    mem_limit: "536870912"
+    networks:
+      lab_net:
+        ipv4_address: 172.30.0.41
+    read_only: true
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+      - /var/run/postgresql
+    volumes:
+      - type: volume
+        source: postgres-data
+        target: /var/lib/postgresql/data
+        volume: {}
+networks:
+  control_net:
+    name: hfish-honeypot-bait-realism-v1_control_net
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.31.0.0/24
+    internal: true
+  lab_net:
+    name: hfish-honeypot-bait-realism-v1_lab_net
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.30.0.0/24
+    internal: true
+volumes:
+  cowrie-var:
+    name: hfish-honeypot-bait-realism-v1_cowrie-var
+  dionaea-var:
+    name: hfish-honeypot-bait-realism-v1_dionaea-var
+  gitea-data:
+    name: hfish-honeypot-bait-realism-v1_gitea-data
+  hfish-db:
+    name: hfish-honeypot-bait-realism-v1_hfish-db
+  postgres-data:
+    name: hfish-honeypot-bait-realism-v1_postgres-data
+x-default-logging:
+  driver: json-file
+  options:
+    max-file: "5"
+    max-size: 20m
+x-restricted:
+  cap_drop:
+    - ALL
+  cpus: 0.75
+  logging:
+    driver: json-file
+    options:
+      max-file: "5"
+      max-size: 20m
+  mem_limit: 512m
+  security_opt:
+    - no-new-privileges:true
+  tmpfs:
+    - /tmp

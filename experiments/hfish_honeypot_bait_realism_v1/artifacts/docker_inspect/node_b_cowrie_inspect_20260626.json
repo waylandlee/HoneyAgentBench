@@ -1,0 +1,287 @@
+[
+    {
+        "Id": "40c92b56932223f26767c1701edcc55cd9bb2555500bc7ab87392c28d9fc4e8b",
+        "Created": "2026-06-25T19:14:13.231250913Z",
+        "Path": "/cowrie/cowrie-env/bin/python3",
+        "Args": [
+            "/cowrie/cowrie-env/bin/twistd",
+            "-n",
+            "--umask=0022",
+            "--pidfile=",
+            "cowrie"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 253962,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-06-25T19:14:13.287321066Z",
+            "FinishedAt": "0001-01-01T00:00:00Z"
+        },
+        "Image": "sha256:b4817f185e522f5a66975568ff304ae02c042b65454c2542918f42dbaf1b31fa",
+        "ResolvConfPath": "/var/lib/docker/containers/40c92b56932223f26767c1701edcc55cd9bb2555500bc7ab87392c28d9fc4e8b/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/40c92b56932223f26767c1701edcc55cd9bb2555500bc7ab87392c28d9fc4e8b/hostname",
+        "HostsPath": "/var/lib/docker/containers/40c92b56932223f26767c1701edcc55cd9bb2555500bc7ab87392c28d9fc4e8b/hosts",
+        "LogPath": "/var/lib/docker/containers/40c92b56932223f26767c1701edcc55cd9bb2555500bc7ab87392c28d9fc4e8b/40c92b56932223f26767c1701edcc55cd9bb2555500bc7ab87392c28d9fc4e8b-json.log",
+        "Name": "/realism-node-b-cowrie",
+        "RestartCount": 0,
+        "Driver": "overlayfs",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "hfish-honeypot-bait-realism-v1_cowrie-var:/cowrie/cowrie-git/var:rw"
+            ],
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {
+                    "max-file": "5",
+                    "max-size": "20m"
+                }
+            },
+            "NetworkMode": "hfish-honeypot-bait-realism-v1_lab_net",
+            "PortBindings": {},
+            "RestartPolicy": {
+                "Name": "unless-stopped",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "CapAdd": null,
+            "CapDrop": [
+                "ALL"
+            ],
+            "CgroupnsMode": "private",
+            "Dns": null,
+            "DnsOptions": null,
+            "DnsSearch": null,
+            "ExtraHosts": [],
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": true,
+            "SecurityOpt": [
+                "no-new-privileges:true"
+            ],
+            "Tmpfs": {
+                "/tmp": ""
+            },
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 536870912,
+            "NanoCpus": 750000000,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": null,
+            "BlkioDeviceReadBps": null,
+            "BlkioDeviceWriteBps": null,
+            "BlkioDeviceReadIOps": null,
+            "BlkioDeviceWriteIOps": null,
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": null,
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "MemoryReservation": 0,
+            "MemorySwap": 1073741824,
+            "MemorySwappiness": null,
+            "OomKillDisable": null,
+            "PidsLimit": null,
+            "Ulimits": null,
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "MaskedPaths": [
+                "/proc/acpi",
+                "/proc/asound",
+                "/proc/interrupts",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/sys/devices/virtual/powercap",
+                "/sys/firmware"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ]
+        },
+        "Storage": {
+            "RootFS": {
+                "Snapshot": {
+                    "Name": "overlayfs"
+                }
+            }
+        },
+        "Mounts": [
+            {
+                "Type": "volume",
+                "Name": "hfish-honeypot-bait-realism-v1_cowrie-var",
+                "Source": "/var/lib/docker/volumes/hfish-honeypot-bait-realism-v1_cowrie-var/_data",
+                "Destination": "/cowrie/cowrie-git/var",
+                "Driver": "local",
+                "Mode": "rw",
+                "RW": true,
+                "Propagation": ""
+            },
+            {
+                "Type": "volume",
+                "Name": "5125d5125d00f239b977c1000a427c93b7d0490e4d6b7772f8c1bc76a9a5710e",
+                "Source": "/var/lib/docker/volumes/5125d5125d00f239b977c1000a427c93b7d0490e4d6b7772f8c1bc76a9a5710e/_data",
+                "Destination": "/cowrie/cowrie-git/etc",
+                "Driver": "local",
+                "Mode": "",
+                "RW": true,
+                "Propagation": ""
+            }
+        ],
+        "Config": {
+            "Hostname": "node-b-remote",
+            "Domainname": "",
+            "User": "cowrie",
+            "AttachStdin": false,
+            "AttachStdout": true,
+            "AttachStderr": true,
+            "ExposedPorts": {
+                "2222/tcp": {},
+                "2223/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "COWRIE_TELNET_ENABLED=yes",
+                "PATH=/cowrie/cowrie-env/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt",
+                "LANG=C.UTF-8",
+                "COWRIE_GROUP=cowrie",
+                "COWRIE_USER=cowrie",
+                "COWRIE_HOME=/cowrie",
+                "PYTHONPATH=/cowrie/cowrie-git/src",
+                "PYTHONUNBUFFERED=1"
+            ],
+            "Cmd": [
+                "/cowrie/cowrie-env/bin/twistd",
+                "-n",
+                "--umask=0022",
+                "--pidfile=",
+                "cowrie"
+            ],
+            "Image": "cowrie/cowrie@sha256:b4817f185e522f5a66975568ff304ae02c042b65454c2542918f42dbaf1b31fa",
+            "Volumes": {
+                "/cowrie/cowrie-git/etc": {},
+                "/cowrie/cowrie-git/var": {}
+            },
+            "WorkingDir": "/cowrie/cowrie-git",
+            "Entrypoint": [
+                "/cowrie/cowrie-env/bin/python3"
+            ],
+            "Labels": {
+                "com.docker.compose.config-hash": "7374229988dd6e7d345fbad98ced54b495a1ae6d85ffda53c282d5025be81ecc",
+                "com.docker.compose.container-number": "1",
+                "com.docker.compose.depends_on": "",
+                "com.docker.compose.image": "sha256:b4817f185e522f5a66975568ff304ae02c042b65454c2542918f42dbaf1b31fa",
+                "com.docker.compose.oneoff": "False",
+                "com.docker.compose.project": "hfish-honeypot-bait-realism-v1",
+                "com.docker.compose.project.config_files": "/home/waylandlee/HoneyAgentBench/experiments/hfish_honeypot_bait_realism_v1/configs/compose.realism-v1.yaml,/home/waylandlee/HoneyAgentBench/experiments/hfish_honeypot_bait_realism_v1/configs/compose.realism-v1.pinned.yaml",
+                "com.docker.compose.project.working_dir": "/home/waylandlee/HoneyAgentBench/experiments/hfish_honeypot_bait_realism_v1/configs",
+                "com.docker.compose.service": "node_b_cowrie",
+                "com.docker.compose.version": "2.40.3",
+                "org.opencontainers.image.authors": "Michel Oosterhof <michel@oosterhof.net>",
+                "org.opencontainers.image.base.name": "gcr.io/distroless/python3-debian13",
+                "org.opencontainers.image.created": "2026-06-23T12:28:40.310Z",
+                "org.opencontainers.image.description": "Cowrie SSH/Telnet Honeypot https://docs.cowrie.org/",
+                "org.opencontainers.image.documentation": "https://docs.cowrie.org",
+                "org.opencontainers.image.licenses": "NOASSERTION",
+                "org.opencontainers.image.revision": "a2887ca4468973689cc1616c8ca0fa9a3bbded4b",
+                "org.opencontainers.image.source": "https://github.com/cowrie/cowrie",
+                "org.opencontainers.image.title": "cowrie",
+                "org.opencontainers.image.url": "https://github.com/cowrie/cowrie",
+                "org.opencontainers.image.vendor": "Cowrie",
+                "org.opencontainers.image.version": "main"
+            }
+        },
+        "NetworkSettings": {
+            "SandboxID": "9d8afcb519dd6d9c7e6638ec209159ec69ec356da06dc280ea873f6f0af5899e",
+            "SandboxKey": "/var/run/docker/netns/9d8afcb519dd",
+            "Ports": {
+                "2222/tcp": null,
+                "2223/tcp": null
+            },
+            "Networks": {
+                "hfish-honeypot-bait-realism-v1_lab_net": {
+                    "IPAMConfig": {
+                        "IPv4Address": "172.30.0.21",
+                        "IPv6Address": ""
+                    },
+                    "Links": null,
+                    "Aliases": [
+                        "realism-node-b-cowrie",
+                        "node_b_cowrie"
+                    ],
+                    "DriverOpts": null,
+                    "GwPriority": 0,
+                    "NetworkID": "4b7de4021a9b9e81c792ea01619813cf46c1881d6821342cb406efe1a150d0a6",
+                    "EndpointID": "dc14103d352698ad3c9666f2254429582463f30aab67ad96168278ed7c027825",
+                    "Gateway": "",
+                    "IPAddress": "172.30.0.21",
+                    "MacAddress": "2e:c1:66:05:69:bb",
+                    "IPPrefixLen": 24,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": [
+                        "realism-node-b-cowrie",
+                        "node_b_cowrie",
+                        "40c92b569322",
+                        "node-b-remote"
+                    ]
+                }
+            }
+        },
+        "ImageManifestDescriptor": {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:a4379da53732a22dc301eb3a1933eb5d88f39666280a98e1866f5be07de8e7bd",
+            "size": 10365,
+            "platform": {
+                "architecture": "amd64",
+                "os": "linux"
+            }
+        }
+    }
+]

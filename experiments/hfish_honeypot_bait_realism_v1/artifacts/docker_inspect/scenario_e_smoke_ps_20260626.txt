@@ -1,0 +1,3 @@
+NAME                      IMAGE                       COMMAND                  SERVICE           CREATED         STATUS         PORTS
+realism-node-d-gitea      gitea/gitea:1.22-rootless   "/usr/bin/dumb-init …"   node_d_gitea      2 minutes ago   Up 2 minutes   2222/tcp, 3000/tcp
+realism-node-d-postgres   postgres:16-alpine          "docker-entrypoint.s…"   node_d_postgres   2 minutes ago   Up 2 minutes   5432/tcp

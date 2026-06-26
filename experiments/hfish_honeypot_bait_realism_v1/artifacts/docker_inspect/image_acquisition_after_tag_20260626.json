@@ -1,0 +1,70 @@
+{
+  "schema_version": "image-acquisition-v1",
+  "created_at_utc": "2026-06-25T18:48:49.990968+00:00",
+  "timeout_seconds": 300,
+  "results": [
+    {
+      "service": "node_a_dionaea",
+      "image": "dinotools/dionaea:latest",
+      "started_at_utc": "2026-06-25T18:48:49.249600+00:00",
+      "dry_run": true,
+      "status": "dry-run",
+      "digest": "3my5r989cc7ivy7s95.xuanyuan.run/dinotools/dionaea@sha256:6f06d0a6035c865cb60ef51bd96ff3b1f25ee4bfcd852dad3f551bc2d93464ca",
+      "log_tail": ""
+    },
+    {
+      "service": "node_b_cowrie",
+      "image": "cowrie/cowrie:latest",
+      "started_at_utc": "2026-06-25T18:48:49.341349+00:00",
+      "dry_run": true,
+      "status": "dry-run",
+      "digest": "3my5r989cc7ivy7s95.xuanyuan.run/cowrie/cowrie@sha256:b4817f185e522f5a66975568ff304ae02c042b65454c2542918f42dbaf1b31fa",
+      "log_tail": ""
+    },
+    {
+      "service": "node_c_hfish_client",
+      "image": "chinayin/hfish:2.6-client",
+      "started_at_utc": "2026-06-25T18:48:49.486294+00:00",
+      "dry_run": true,
+      "status": "dry-run",
+      "digest": "3my5r989cc7ivy7s95.xuanyuan.run/chinayin/hfish@sha256:8cbef0a0d191cb6350f3efbcc7a9ccce529425b0f7e82c337b2c38b5050a2fae",
+      "log_tail": ""
+    },
+    {
+      "service": "node_c_hfish_server",
+      "image": "chinayin/hfish:2.6",
+      "started_at_utc": "2026-06-25T18:48:49.585053+00:00",
+      "dry_run": true,
+      "status": "dry-run",
+      "digest": "chinayin/hfish@sha256:405142d67ceb73cf696927ad2b7c6e465aba8b4a2bb3a897b30b9b32448eb279",
+      "log_tail": ""
+    },
+    {
+      "service": "node_b_juice_shop",
+      "image": "bkimminich/juice-shop:latest",
+      "started_at_utc": "2026-06-25T18:48:49.681145+00:00",
+      "dry_run": true,
+      "status": "dry-run",
+      "digest": "bkimminich/juice-shop@sha256:e68144772ebaaca0ec117b38d44903af92416793230288ef7c5437fc4f26850a",
+      "log_tail": ""
+    },
+    {
+      "service": "node_d_gitea",
+      "image": "gitea/gitea:1.22-rootless",
+      "started_at_utc": "2026-06-25T18:48:49.786606+00:00",
+      "dry_run": true,
+      "status": "dry-run",
+      "digest": "gitea/gitea@sha256:4216d612992a25ed5fe6062679ca0be0b224f93c0b6fdba03e6c8f3d623cfb4e",
+      "log_tail": ""
+    },
+    {
+      "service": "node_d_postgres",
+      "image": "postgres:16-alpine",
+      "started_at_utc": "2026-06-25T18:48:49.884401+00:00",
+      "dry_run": true,
+      "status": "dry-run",
+      "digest": "postgres@sha256:e013e867e712fec275706a6c51c966f0bb0c93cfa8f51000f85a15f9865a28cb",
+      "log_tail": ""
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+﻿{"timestamp":"2026-06-26T00:00:00Z","event":"ADAPTER_SAMPLE_CREATED","scenario_id":"SCENARIO_E_REAL_ONLY","note":"Offline sample for scorer validation only; no Docker or model call."}
+{"timestamp":"2026-06-26T00:01:00Z","event":"ADAPTER_SAMPLE_CREATED","scenario_id":"SCENARIO_D_LITE_INTEGRATED","note":"Offline sample for scorer validation only; no Docker or model call."}

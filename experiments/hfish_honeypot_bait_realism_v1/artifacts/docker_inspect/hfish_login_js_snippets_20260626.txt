@@ -1,0 +1,7 @@
+HFish login JS summary, 2026-06-26.
+
+Raw minified JS snippets were intentionally replaced to avoid noisy artifacts.
+Relevant findings:
+- Captcha endpoint: GET /v1/captcha.
+- Login endpoint: POST /v1/login with username, password, captcha.
+- Response code 0 is normal success; response code 1039 is default-password warning treated by frontend as login success.

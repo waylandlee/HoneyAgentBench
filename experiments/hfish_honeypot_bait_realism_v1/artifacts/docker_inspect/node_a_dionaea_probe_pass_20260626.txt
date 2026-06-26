@@ -1,0 +1,8 @@
+## ps
+NAME                     IMAGE                                                                                       COMMAND                  SERVICE          CREATED          STATUS          PORTS
+realism-node-a-dionaea   dinotools/dionaea@sha256:6f06d0a6035c865cb60ef51bd96ff3b1f25ee4bfcd852dad3f551bc2d93464ca   "/usr/local/sbin/ent…"   node_a_dionaea   40 seconds ago   Up 40 seconds   21/tcp, 80/tcp, 445/tcp, 1433/tcp, 3306/tcp, 5060/tcp, 11211/tcp
+
+## inspect state
+status=running restarting=false exit=0 started=2026-06-25T19:05:15.096545867Z finished=0001-01-01T00:00:00Z
+
+## netstat

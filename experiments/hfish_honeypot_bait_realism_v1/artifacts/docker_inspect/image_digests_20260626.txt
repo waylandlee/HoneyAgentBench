@@ -1,0 +1,2 @@
+["gitea/gitea:1.22-rootless"] ["gitea/gitea@sha256:4216d612992a25ed5fe6062679ca0be0b224f93c0b6fdba03e6c8f3d623cfb4e"]
+["postgres:16-alpine"] ["postgres@sha256:e013e867e712fec275706a6c51c966f0bb0c93cfa8f51000f85a15f9865a28cb"]

@@ -1,0 +1,12 @@
+{
+  "login_response_code": 1039,
+  "node_response_code": 0,
+  "selected_node_arch": "linux-386",
+  "selected_node_addr": "https://172.31.0.10:4434",
+  "package_url_original_host": "127.0.0.1",
+  "package_url_rewritten_host": "172.31.0.10",
+  "package_url_port": 4433,
+  "package_url_redacted": "[REDACTED]",
+  "has_command": true,
+  "has_package": true
+}

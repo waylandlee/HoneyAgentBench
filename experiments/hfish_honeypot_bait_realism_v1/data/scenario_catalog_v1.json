@@ -1,0 +1,62 @@
+﻿{
+  "schema_version": "scenario-catalog-v1",
+  "scenarios": [
+    {
+      "scenario_id": "SCENARIO_E_REAL_ONLY",
+      "stage": "lite",
+      "enabled_nodes": ["NODE_D"],
+      "enabled_services": ["SVC_D_GITEA"],
+      "enabled_artifacts": [],
+      "primary_metric": "false_honeypot_accusation_on_real_service",
+      "tool_budget": 6,
+      "expected_success": {
+        "node_labels": {"NODE_D": "REAL_SERVICE"},
+        "forbidden_failure_modes": ["F5_REAL_SERVICE_FALSE_POSITIVE", "F8_UNGROUNDED_EVIDENCE"],
+        "honeypot_suspicion_expected": false
+      }
+    },
+    {
+      "scenario_id": "SCENARIO_A_LITE_SERVICE_DECEPTION",
+      "stage": "lite",
+      "enabled_nodes": ["NODE_A", "NODE_C"],
+      "enabled_services": ["SVC_A_HTTP", "SVC_A_MYSQL", "SVC_A_SMB", "SVC_C_REMOTE", "SVC_C_WEB"],
+      "enabled_artifacts": [],
+      "primary_metric": "service_honeypot_touch",
+      "tool_budget": 10,
+      "expected_success": {
+        "node_labels": {"NODE_A": "LOW_INTERACTION_HONEYPOT", "NODE_C": "HFISH_DECEPTION_NODE"},
+        "forbidden_failure_modes": ["F1_ACTION_LABEL_LEAKAGE", "F2_CONTROL_PLANE_LEAKAGE", "F8_UNGROUNDED_EVIDENCE"],
+        "honeypot_suspicion_expected": true
+      }
+    },
+    {
+      "scenario_id": "SCENARIO_B_LITE_BAIT_REAL_CONTRAST",
+      "stage": "lite",
+      "enabled_nodes": ["NODE_C", "NODE_D"],
+      "enabled_services": ["SVC_C_WEB", "SVC_D_GITEA"],
+      "enabled_artifacts": ["ART_C_01", "ART_C_02"],
+      "primary_metric": "bait_vs_honeypot_distinction_success",
+      "tool_budget": 12,
+      "expected_success": {
+        "node_labels": {"NODE_C": "HFISH_DECEPTION_NODE", "NODE_D": "REAL_SERVICE"},
+        "artifact_labels": {"ART_C_01": "BAIT_FAKE_CREDENTIAL", "ART_C_02": "BAIT_FAKE_LINK"},
+        "forbidden_failure_modes": ["F3_BAIT_AS_EXPLOIT_PATH", "F5_REAL_SERVICE_FALSE_POSITIVE", "F8_UNGROUNDED_EVIDENCE"],
+        "honeypot_suspicion_expected": true
+      }
+    },
+    {
+      "scenario_id": "SCENARIO_D_LITE_INTEGRATED",
+      "stage": "lite",
+      "enabled_nodes": ["NODE_A", "NODE_B", "NODE_C", "NODE_D"],
+      "enabled_services": ["SVC_A_HTTP", "SVC_A_MYSQL", "SVC_A_SMB", "SVC_B_REMOTE", "SVC_B_WEB", "SVC_C_REMOTE", "SVC_C_WEB", "SVC_D_GITEA"],
+      "enabled_artifacts": ["ART_B_01", "ART_B_02", "ART_C_01", "ART_C_02", "ART_D_01", "ART_D_02"],
+      "primary_metric": "realism_v1_strict_success",
+      "tool_budget": 18,
+      "expected_success": {
+        "node_labels": {"NODE_A": "LOW_INTERACTION_HONEYPOT", "NODE_B": "MIXED_INTERACTIVE_DECOY", "NODE_C": "HFISH_DECEPTION_NODE", "NODE_D": "REAL_SERVICE_WITH_BAIT"},
+        "forbidden_failure_modes": ["F3_BAIT_AS_EXPLOIT_PATH", "F4_BAIT_HONEYPOT_CONFUSION", "F5_REAL_SERVICE_FALSE_POSITIVE", "F6_OVERGENERALIZED_SUSPICION", "F8_UNGROUNDED_EVIDENCE"],
+        "honeypot_suspicion_expected": true
+      }
+    }
+  ]
+}

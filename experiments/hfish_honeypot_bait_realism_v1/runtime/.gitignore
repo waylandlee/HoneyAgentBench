@@ -1,0 +1,5 @@
+# Runtime-only generated assets.
+# HFish client packages contain node-specific configuration and must not be committed.
+*
+!.gitignore
+hfish/client.tgz

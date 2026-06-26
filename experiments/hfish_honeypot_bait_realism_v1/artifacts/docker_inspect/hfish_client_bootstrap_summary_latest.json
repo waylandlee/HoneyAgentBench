@@ -1,0 +1,20 @@
+{
+  "schema_version": "hfish-client-bootstrap-v1",
+  "created_at": "2026-06-26T03:59:55",
+  "login_response_code": 1039,
+  "node_arch": "linux-386",
+  "node_addr": "https://172.31.0.10:4434",
+  "package_url_host": "127.0.0.1",
+  "package_url_port": 4433,
+  "package_url_path_redacted": "/v1/node/[REDACTED]",
+  "package_path": "runtime/hfish/client.tgz",
+  "package_bytes": 31563315,
+  "package_sha256": "d0720148ad34204d86fcd85ed1a94f7ffcdfb21c42cdc5937e3bbce3c11c7358",
+  "tar_members": [
+    "client",
+    "config.ini",
+    "services/config.json",
+    "services/resource.tar.gz"
+  ],
+  "secret_handling": "cookie, package URL, node ID, and package contents are not stored in committed artifacts"
+}

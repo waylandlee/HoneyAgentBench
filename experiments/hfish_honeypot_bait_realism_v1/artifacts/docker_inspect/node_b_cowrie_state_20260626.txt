@@ -1,0 +1,7 @@
+Status=running
+Running=True
+Restarting=False
+ExitCode=0
+Error=
+StartedAt=2026-06-25T19:14:13.287321066Z
+FinishedAt=0001-01-01T00:00:00Z

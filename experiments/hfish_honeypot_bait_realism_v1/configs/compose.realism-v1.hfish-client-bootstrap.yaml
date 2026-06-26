@@ -1,0 +1,24 @@
+# Optional override for running Node C from a pre-generated HFish client package.
+# Generate runtime/hfish/client.tgz with scripts/bootstrap_hfish_client_package.py first.
+# Use with:
+# docker compose -f configs/compose.realism-v1.yaml \
+#   -f configs/compose.realism-v1.pinned.yaml \
+#   -f configs/compose.realism-v1.hfish-client-bootstrap.yaml up -d node_c_hfish_client
+
+services:
+  node_c_hfish_client:
+    cap_add:
+      - NET_BIND_SERVICE
+    volumes:
+      - ../runtime/hfish/client.tgz:/bootstrap/client.tgz:ro
+    entrypoint: ["/bin/sh", "-lc"]
+    command:
+      - >
+        set -eu;
+        cd /opt/hfish/client;
+        rm -f client client.tgz config.ini;
+        cp /bootstrap/client.tgz ./client.tgz;
+        tar -xvzf client.tgz;
+        rm -f client.tgz;
+        chmod a+x client;
+        exec ./client

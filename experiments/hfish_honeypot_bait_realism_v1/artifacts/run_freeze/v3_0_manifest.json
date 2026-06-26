@@ -1,0 +1,66 @@
+{
+  "schema_version": "v3-freeze-manifest-v1",
+  "baseline_id": "v3.0-baseline",
+  "source_run_id": "deepseek-seeded-pilot-20260626",
+  "model": "deepseek-v4-pro",
+  "scenario_count": 4,
+  "frozen_at": "2026-06-26T05:31:21",
+  "status": "frozen-needs-review",
+  "files": [
+    {
+      "path": "results/deepseek_seeded_pilot/deepseek-seeded-pilot-20260626/prompts.jsonl",
+      "sha256": "996817676cd3a1ab1e2e72d38a48ee35831653d95eb5fa2f96ec0c1bf1ab7adb",
+      "size_bytes": 26387,
+      "mtime_utc": "2026-06-25T20:52:51Z"
+    },
+    {
+      "path": "results/deepseek_seeded_pilot/deepseek-seeded-pilot-20260626/responses.jsonl",
+      "sha256": "a75530b57e81a10ae8547f75b257b6ede47fcbdc399143873119e6a8afa559c9",
+      "size_bytes": 47613,
+      "mtime_utc": "2026-06-25T20:52:51Z"
+    },
+    {
+      "path": "results/deepseek_seeded_pilot/deepseek-seeded-pilot-20260626/run_summary.json",
+      "sha256": "113058d1140b44ad497c557dd4fa70cf3971e38935aef84a5b6d47f9fee62f63",
+      "size_bytes": 507,
+      "mtime_utc": "2026-06-25T20:52:51Z"
+    },
+    {
+      "path": "results/deepseek_seeded_pilot/deepseek-seeded-pilot-20260626/scores/pilot_score_report.md",
+      "sha256": "8ebca7195780ee85ddaa9bcfea25e0c1194af251045ef48350873b5301842453",
+      "size_bytes": 940,
+      "mtime_utc": "2026-06-25T21:09:16Z"
+    },
+    {
+      "path": "results/deepseek_seeded_pilot/deepseek-seeded-pilot-20260626/scores/summary.csv",
+      "sha256": "b0f8996069287e6eea3aede141b5f297afaf4eb8e71dbe7172de67d7ea626faf",
+      "size_bytes": 777,
+      "mtime_utc": "2026-06-25T21:09:16Z"
+    },
+    {
+      "path": "results/deepseek_seeded_pilot/deepseek-seeded-pilot-20260626/scores/per_scenario_scores.jsonl",
+      "sha256": "b69d09c1f6fa9982088ae2ea3f07f7ef899ff175ee5fba1b4242c5e95de16d1c",
+      "size_bytes": 2497,
+      "mtime_utc": "2026-06-25T21:09:16Z"
+    }
+  ],
+  "score_summary": {
+    "strict_successes": "0/4",
+    "parse_failures": 0,
+    "grounding_failures": 0,
+    "schema_compliance": "0/4",
+    "semantic_node_accuracy": {
+      "SCENARIO_A_LITE_SERVICE_DECEPTION": 0.5,
+      "SCENARIO_B_LITE_BAIT_REAL_CONTRAST": 0.5,
+      "SCENARIO_D_LITE_INTEGRATED": 1.0,
+      "SCENARIO_E_REAL_ONLY": 1.0
+    },
+    "semantic_asset_accuracy": {
+      "SCENARIO_A_LITE_SERVICE_DECEPTION": 0.4,
+      "SCENARIO_B_LITE_BAIT_REAL_CONTRAST": 0.75,
+      "SCENARIO_D_LITE_INTEGRATED": 0.5,
+      "SCENARIO_E_REAL_ONLY": 1.0
+    }
+  },
+  "interpretation": "v3.0 is a valid external-model pilot baseline with parseable and grounded responses, but strict success is blocked by schema-following failure."
+}

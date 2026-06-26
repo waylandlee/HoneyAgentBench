@@ -1,0 +1,7 @@
+HFish client package search summary, 2026-06-26.
+
+Raw minified JS output was intentionally replaced to avoid noisy artifacts.
+Relevant findings retained in reports:
+- HFish Server includes package resources under /opt/hfish/packages.
+- HFish Client entrypoint downloads CLIENT_URL to client.tgz, extracts it, chmods client, and executes ./client.
+- Frontend NodeList flow creates nodes through /v1/node and returns command/package fields.

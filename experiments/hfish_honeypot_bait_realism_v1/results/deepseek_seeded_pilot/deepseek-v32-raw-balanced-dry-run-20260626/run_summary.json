@@ -1,0 +1,16 @@
+{
+  "schema_version": "deepseek-seeded-pilot-run-v1",
+  "prompt_version": "v3.2-model-ability-raw_balanced",
+  "run_id": "deepseek-v32-raw-balanced-dry-run-20260626",
+  "model": "deepseek-v4-pro",
+  "base_url": "https://api.deepseek.com",
+  "dry_run": true,
+  "observation_mode": "raw_balanced",
+  "observations_path": "data/telemetry/v32_raw_balanced_observations.jsonl",
+  "scenario_count": 4,
+  "prompt_path": "results/deepseek_seeded_pilot/deepseek-v32-raw-balanced-dry-run-20260626/prompts.jsonl",
+  "prompt_validation_pass": true,
+  "prompt_validation_issues": [],
+  "external_upload_status": "not_performed",
+  "secret_handling": "API key is read only from environment/.env and is never written to disk."
+}

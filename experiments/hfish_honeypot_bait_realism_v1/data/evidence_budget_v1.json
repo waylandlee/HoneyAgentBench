@@ -1,0 +1,327 @@
+{
+  "schema_version": "evidence-budget-v1",
+  "generated_at": "2026-06-26T07:40:22",
+  "source_observations": "data/telemetry/live_adapter_observations.jsonl",
+  "source_events": "data/telemetry/live_realism_events.jsonl",
+  "goal": "Balance model-visible evidence so v3.2 measures model reasoning instead of uneven context volume.",
+  "limits_per_scenario_node": {
+    "service_response": 2,
+    "status_consistency": 1,
+    "content_structure": 1,
+    "artifact_index": 1,
+    "artifact_content": 2,
+    "mixed_contrast": 1
+  },
+  "non_objectives": [
+    "No Docker topology changes.",
+    "No new scenarios.",
+    "No external API calls.",
+    "No image pulls."
+  ],
+  "scenarios": {
+    "SCENARIO_A_LITE_SERVICE_DECEPTION": {
+      "source_count": 10,
+      "selected_count": 6,
+      "discarded_evidence_ids": [
+        "LIVE_A_003",
+        "LIVE_A_005",
+        "LIVE_A_009",
+        "LIVE_A_010"
+      ],
+      "nodes": {
+        "NODE_A": {
+          "selected_evidence_ids": [
+            "LIVE_A_001",
+            "LIVE_A_002",
+            "LIVE_A_004"
+          ],
+          "role_counts": {
+            "service_response": 2,
+            "status_consistency": 1
+          }
+        },
+        "NODE_C": {
+          "selected_evidence_ids": [
+            "LIVE_A_006",
+            "LIVE_A_007",
+            "LIVE_A_008"
+          ],
+          "role_counts": {
+            "service_response": 2,
+            "status_consistency": 1
+          }
+        }
+      }
+    },
+    "SCENARIO_B_LITE_BAIT_REAL_CONTRAST": {
+      "source_count": 8,
+      "selected_count": 7,
+      "discarded_evidence_ids": [
+        "LIVE_B_008"
+      ],
+      "nodes": {
+        "NODE_C": {
+          "selected_evidence_ids": [
+            "LIVE_B_001",
+            "LIVE_B_002",
+            "LIVE_B_003",
+            "LIVE_B_004",
+            "LIVE_B_005"
+          ],
+          "role_counts": {
+            "artifact_content": 2,
+            "artifact_index": 1,
+            "service_response": 1,
+            "status_consistency": 1
+          }
+        },
+        "NODE_D": {
+          "selected_evidence_ids": [
+            "LIVE_B_006",
+            "LIVE_B_007"
+          ],
+          "role_counts": {
+            "content_structure": 1,
+            "service_response": 1
+          }
+        }
+      }
+    },
+    "SCENARIO_D_LITE_INTEGRATED": {
+      "source_count": 18,
+      "selected_count": 17,
+      "discarded_evidence_ids": [
+        "LIVE_D_010"
+      ],
+      "nodes": {
+        "NODE_A": {
+          "selected_evidence_ids": [
+            "LIVE_D_001"
+          ],
+          "role_counts": {
+            "service_response": 1
+          }
+        },
+        "NODE_B": {
+          "selected_evidence_ids": [
+            "LIVE_D_002",
+            "LIVE_D_003",
+            "LIVE_D_004",
+            "LIVE_D_005",
+            "LIVE_D_006",
+            "LIVE_D_007"
+          ],
+          "role_counts": {
+            "artifact_content": 2,
+            "content_structure": 1,
+            "service_response": 2,
+            "status_consistency": 1
+          }
+        },
+        "NODE_C": {
+          "selected_evidence_ids": [
+            "LIVE_D_008",
+            "LIVE_D_009",
+            "LIVE_D_011",
+            "LIVE_D_012",
+            "LIVE_D_013",
+            "LIVE_D_018"
+          ],
+          "role_counts": {
+            "artifact_content": 2,
+            "artifact_index": 1,
+            "mixed_contrast": 1,
+            "service_response": 1,
+            "status_consistency": 1
+          }
+        },
+        "NODE_D": {
+          "selected_evidence_ids": [
+            "LIVE_D_014",
+            "LIVE_D_015",
+            "LIVE_D_016",
+            "LIVE_D_017"
+          ],
+          "role_counts": {
+            "artifact_content": 1,
+            "content_structure": 1,
+            "mixed_contrast": 1,
+            "service_response": 1
+          }
+        }
+      }
+    },
+    "SCENARIO_E_REAL_ONLY": {
+      "source_count": 3,
+      "selected_count": 2,
+      "discarded_evidence_ids": [
+        "LIVE_E_003"
+      ],
+      "nodes": {
+        "NODE_D": {
+          "selected_evidence_ids": [
+            "LIVE_E_001",
+            "LIVE_E_002"
+          ],
+          "role_counts": {
+            "content_structure": 1,
+            "service_response": 1
+          }
+        }
+      }
+    }
+  },
+  "raw_balanced_scenarios": {
+    "SCENARIO_A_LITE_SERVICE_DECEPTION": {
+      "source_count": 10,
+      "selected_count": 6,
+      "discarded_evidence_ids": [
+        "LIVE_A_003",
+        "LIVE_A_005",
+        "LIVE_A_009",
+        "LIVE_A_010"
+      ],
+      "nodes": {
+        "NODE_A": {
+          "selected_evidence_ids": [
+            "LIVE_A_001",
+            "LIVE_A_002",
+            "LIVE_A_004"
+          ],
+          "role_counts": {
+            "service_response": 2,
+            "status_consistency": 1
+          }
+        },
+        "NODE_C": {
+          "selected_evidence_ids": [
+            "LIVE_A_006",
+            "LIVE_A_007",
+            "LIVE_A_008"
+          ],
+          "role_counts": {
+            "service_response": 2,
+            "status_consistency": 1
+          }
+        }
+      }
+    },
+    "SCENARIO_B_LITE_BAIT_REAL_CONTRAST": {
+      "source_count": 8,
+      "selected_count": 7,
+      "discarded_evidence_ids": [
+        "LIVE_B_008"
+      ],
+      "nodes": {
+        "NODE_C": {
+          "selected_evidence_ids": [
+            "LIVE_B_001",
+            "LIVE_B_002",
+            "LIVE_B_003",
+            "LIVE_B_004",
+            "LIVE_B_005"
+          ],
+          "role_counts": {
+            "artifact_content": 2,
+            "artifact_index": 1,
+            "service_response": 1,
+            "status_consistency": 1
+          }
+        },
+        "NODE_D": {
+          "selected_evidence_ids": [
+            "LIVE_B_006",
+            "LIVE_B_007"
+          ],
+          "role_counts": {
+            "content_structure": 1,
+            "service_response": 1
+          }
+        }
+      }
+    },
+    "SCENARIO_D_LITE_INTEGRATED": {
+      "source_count": 18,
+      "selected_count": 17,
+      "discarded_evidence_ids": [
+        "LIVE_D_010"
+      ],
+      "nodes": {
+        "NODE_A": {
+          "selected_evidence_ids": [
+            "LIVE_D_001"
+          ],
+          "role_counts": {
+            "service_response": 1
+          }
+        },
+        "NODE_B": {
+          "selected_evidence_ids": [
+            "LIVE_D_002",
+            "LIVE_D_003",
+            "LIVE_D_004",
+            "LIVE_D_005",
+            "LIVE_D_006",
+            "LIVE_D_007"
+          ],
+          "role_counts": {
+            "artifact_content": 2,
+            "content_structure": 1,
+            "service_response": 2,
+            "status_consistency": 1
+          }
+        },
+        "NODE_C": {
+          "selected_evidence_ids": [
+            "LIVE_D_008",
+            "LIVE_D_009",
+            "LIVE_D_011",
+            "LIVE_D_012",
+            "LIVE_D_013",
+            "LIVE_D_018"
+          ],
+          "role_counts": {
+            "artifact_content": 2,
+            "artifact_index": 1,
+            "mixed_contrast": 1,
+            "service_response": 1,
+            "status_consistency": 1
+          }
+        },
+        "NODE_D": {
+          "selected_evidence_ids": [
+            "LIVE_D_014",
+            "LIVE_D_015",
+            "LIVE_D_016",
+            "LIVE_D_017"
+          ],
+          "role_counts": {
+            "artifact_content": 1,
+            "content_structure": 1,
+            "mixed_contrast": 1,
+            "service_response": 1
+          }
+        }
+      }
+    },
+    "SCENARIO_E_REAL_ONLY": {
+      "source_count": 3,
+      "selected_count": 2,
+      "discarded_evidence_ids": [
+        "LIVE_E_003"
+      ],
+      "nodes": {
+        "NODE_D": {
+          "selected_evidence_ids": [
+            "LIVE_E_001",
+            "LIVE_E_002"
+          ],
+          "role_counts": {
+            "content_structure": 1,
+            "service_response": 1
+          }
+        }
+      }
+    }
+  }
+}

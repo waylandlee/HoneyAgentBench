@@ -1,0 +1,2 @@
+NAME                    IMAGE                                                                                   COMMAND                  SERVICE         CREATED          STATUS          PORTS
+realism-node-b-cowrie   cowrie/cowrie@sha256:b4817f185e522f5a66975568ff304ae02c042b65454c2542918f42dbaf1b31fa   "/cowrie/cowrie-env/…"   node_b_cowrie   36 seconds ago   Up 35 seconds   2222-2223/tcp

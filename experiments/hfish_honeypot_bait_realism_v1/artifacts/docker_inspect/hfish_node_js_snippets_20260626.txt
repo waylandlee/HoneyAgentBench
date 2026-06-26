@@ -1,0 +1,9 @@
+HFish NodeList JS summary, 2026-06-26.
+
+Raw minified JS snippets were intentionally replaced to avoid noisy artifacts.
+Relevant findings:
+- Architecture endpoint: GET /v1/arch/list.
+- Address endpoint: GET /v1/addr/list.
+- Node package generation endpoint: POST /v1/node.
+- Fields inferred from frontend: node_arch, node_addr, location, mould_id.
+- Success result includes command and package fields.

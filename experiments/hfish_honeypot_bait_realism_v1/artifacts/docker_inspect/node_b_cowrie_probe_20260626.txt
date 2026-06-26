@@ -1,0 +1,8 @@
+Superseded probe note, 2026-06-26 Asia/Shanghai.
+
+Cowrie smoke PASS does not rely on this file. A shell-based probe failed because the Cowrie image does not provide a generic sh executable, and a follow-up python -c probe command was not portable through the Windows-to-WSL command wrapper.
+
+Accepted evidence is recorded in:
+- artifacts/docker_inspect/node_b_cowrie_ps_20260626.txt
+- artifacts/docker_inspect/node_b_cowrie_state_20260626.txt
+- logs/docker_pull/node_b_cowrie_smoke_20260626.log

@@ -1,0 +1,31 @@
+## docker ps
+NAME                           IMAGE                COMMAND      SERVICE        CREATED         STATUS         PORTS
+realism-control-hfish-server   chinayin/hfish:2.6   "./server"   hfish_server   2 minutes ago   Up 2 minutes   4433-4434/tcp
+
+## inspect ports
+{"4433/tcp":null,"4434/tcp":null}
+
+## localhost probes
+--- https://127.0.0.1:4433/
+curl: (28) Connection timed out after 5002 milliseconds
+
+--- https://127.0.0.1:4434/
+curl: (28) Connection timed out after 5002 milliseconds
+
+--- http://127.0.0.1:4433/
+curl: (28) Connection timed out after 5001 milliseconds
+
+--- http://127.0.0.1:4434/
+curl: (28) Connection timed out after 5002 milliseconds
+
+
+## inside probes with wget/curl availability
+/bin/sh
+/usr/bin/wget
+/usr/bin/curl
+/bin/netstat
+    PID TTY          TIME CMD
+      1 ?        00:00:00 server
+     29 ?        00:00:00 sh
+     35 ?        00:00:00 ps
+     36 ?        00:00:00 head

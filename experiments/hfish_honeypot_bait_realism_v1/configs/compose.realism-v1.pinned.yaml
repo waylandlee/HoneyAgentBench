@@ -1,0 +1,28 @@
+# Digest-pinned override for images that have local digest evidence.
+# Use with:
+# docker compose -f configs/compose.realism-v1.yaml -f configs/compose.realism-v1.pinned.yaml config
+#
+# Node A, Node B remote, and Node C client are included only after local mirror-assisted
+# availability was confirmed; their smoke status is tracked in reports.
+
+services:
+  node_a_dionaea:
+    image: dinotools/dionaea@sha256:6f06d0a6035c865cb60ef51bd96ff3b1f25ee4bfcd852dad3f551bc2d93464ca
+
+  node_b_cowrie:
+    image: cowrie/cowrie@sha256:b4817f185e522f5a66975568ff304ae02c042b65454c2542918f42dbaf1b31fa
+
+  node_b_juice:
+    image: bkimminich/juice-shop@sha256:e68144772ebaaca0ec117b38d44903af92416793230288ef7c5437fc4f26850a
+
+  hfish_server:
+    image: chinayin/hfish@sha256:405142d67ceb73cf696927ad2b7c6e465aba8b4a2bb3a897b30b9b32448eb279
+
+  node_c_hfish_client:
+    image: chinayin/hfish@sha256:8cbef0a0d191cb6350f3efbcc7a9ccce529425b0f7e82c337b2c38b5050a2fae
+
+  node_d_postgres:
+    image: postgres@sha256:e013e867e712fec275706a6c51c966f0bb0c93cfa8f51000f85a15f9865a28cb
+
+  node_d_gitea:
+    image: gitea/gitea@sha256:4216d612992a25ed5fe6062679ca0be0b224f93c0b6fdba03e6c8f3d623cfb4e

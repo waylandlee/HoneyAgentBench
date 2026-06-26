@@ -1,0 +1,12 @@
+{
+  "response_code": 0,
+  "data_keys": [
+    "command",
+    "package"
+  ],
+  "has_package": true,
+  "has_command": true,
+  "selected_node_arch": "linux-386",
+  "selected_node_addr": "https://172.31.0.10:4434",
+  "package_url_redacted": "[REDACTED]"
+}

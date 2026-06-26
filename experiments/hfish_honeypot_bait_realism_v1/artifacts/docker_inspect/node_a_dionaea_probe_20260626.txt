@@ -1,0 +1,9 @@
+## ps
+NAME                     IMAGE                                                                                       COMMAND                  SERVICE          CREATED          STATUS                           PORTS
+realism-node-a-dionaea   dinotools/dionaea@sha256:6f06d0a6035c865cb60ef51bd96ff3b1f25ee4bfcd852dad3f551bc2d93464ca   "/usr/local/sbin/ent…"   node_a_dionaea   25 seconds ago   Restarting (133) 9 seconds ago   
+
+## inspect state
+status=restarting restarting=true exit=133 started=2026-06-25T18:50:10.870954843Z finished=2026-06-25T18:50:11.682325025Z
+
+## netstat
+Error response from daemon: Container 66a6e279b4665f5d719c14336c636e94e858b1ab921941ace372a50f00ec2727 is restarting, wait until the container is running

@@ -1,0 +1,5 @@
+HFish auth JS summary, 2026-06-26.
+
+Raw minified JS snippets were intentionally replaced to avoid noisy artifacts.
+Relevant finding:
+- HFish frontend uses /v1/login and session cookies for authenticated management API calls.

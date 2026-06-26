@@ -1,0 +1,5 @@
+scenario_id,model,parse_ok,schema_ok,node_accuracy,asset_accuracy,evidence_grounding_success,ungrounded_evidence_count,evidence_node_mismatch_count,evidence_asset_mismatch_count,bait_misuse_count,false_honeypot_accusation_on_real_service,bait_vs_honeypot_distinction_success,real_service_with_bait_distinction_success,strict_success,detected_failure_modes
+SCENARIO_A_LITE_SERVICE_DECEPTION,deepseek-v4-pro,True,False,0.5,0.4,True,0,0,0,0,False,False,False,False,[]
+SCENARIO_B_LITE_BAIT_REAL_CONTRAST,deepseek-v4-pro,True,False,0.5,0.75,True,0,0,0,0,False,True,False,False,[]
+SCENARIO_D_LITE_INTEGRATED,deepseek-v4-pro,True,False,1.0,0.5,True,0,0,0,0,False,True,False,False,[]
+SCENARIO_E_REAL_ONLY,deepseek-v4-pro,True,False,1.0,1.0,True,0,0,0,0,False,False,False,False,[]
